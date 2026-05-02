@@ -18,9 +18,9 @@
 
 # Source visualization modules -------------------------------------------------
 # Each file defines a _ui() and _server() function pair
-source("vis1.R")              # Dumbbell chart: Starters vs. Bench
-source("vis1_animation.R")    # Moneyball Shift animation
-source("Vis_2.R")             # Visualization 2. More info needed(?)
+source("scripts/vis1.R")              # Dumbbell chart: Starters vs. Bench
+source("scripts/vis1_animation.R")    # Moneyball Shift animation
+source("scripts/Vis_2.R")             # Visualization 2. More info needed(?)
 
 
 # Additional packages needed by app.R itself
