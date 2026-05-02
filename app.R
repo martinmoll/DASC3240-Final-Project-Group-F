@@ -19,10 +19,11 @@
 # Source visualization modules -------------------------------------------------
 # Each file defines a _ui() and _server() function pair
 source("vis1.R")              # Dumbbell chart: Starters vs. Bench
-source("vis1_animation.R")     # Moneyball Shift animation
+source("vis1_animation.R")    # Moneyball Shift animation
+source("Vis_2.R")             # Visualization 2. More info needed(?)
 
 
-# Additional packages needed by app.R itself -----------------------------------
+# Additional packages needed by app.R itself
 library(bslib)
 library(markdown)  # Required for includeMarkdown() in the About tab
 
@@ -31,12 +32,13 @@ library(markdown)  # Required for includeMarkdown() in the About tab
 # UI: Assemble all tabs into a navbar layout
 # =============================================================================
 ui <- page_navbar(
-  title = "WNBA 2019 - Moneyball Analysis",
+  title = "WNBA 2019 - Finding Hidden Gems",
   theme = bs_theme(bootswatch = "flatly"),
   
   # --- Visualization tabs (one per group member) ---
   vis1_ui(),                # Tab 1: Dumbbell chart
-  vis1_anim_ui(),            # Tab 2: Moneyball Shift animation
+  vis1_anim_ui(),           # Tab 2: Moneyball Shift animation
+  vis2_ui(),
   # source("vis_OTHER.R")   # Tab 3: Add other members' tabs here
   
   # --- About tab: dataset background, license, methodology ---
@@ -53,6 +55,7 @@ ui <- page_navbar(
 server <- function(input, output, session) {
   vis1_server(input, output, session)
   vis1_anim_server(input, output, session)
+  vis2_server(input, output, session)
   # vis_OTHER_server(input, output, session)  # Add other members here
 }
 

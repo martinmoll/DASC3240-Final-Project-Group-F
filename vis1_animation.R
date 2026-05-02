@@ -223,17 +223,17 @@ if (!file.exists(gif_path)) {
 # =============================================================================
 vis1_anim_ui <- function() {
   nav_panel(
-    title = "Moneyball Shift",
+    title = "HGS Shift",
     icon  = icon("play"),
     
     layout_sidebar(
       sidebar = sidebar(
-        title = "The Moneyball Shift",
+        title = "HGS Shift",
         width = 300,
         
         # Explanation of what the animation shows
         p("This animation morphs between two ways of measuring",
-          "player value using Hollinger's Game Score:"),
+          "player value using Hollinger's Game Score(HGS):"),
         
         tags$ul(
           tags$li(strong("Per-Game"), " (raw) favours starters who",
@@ -298,7 +298,7 @@ vis1_anim_server <- function(input, output, session) {
       src         = gif_path,
       contentType = "image/gif",
       width       = "100%",
-      alt         = "Moneyball Shift Animation: per-game vs per-minute Game Score"
+      alt         = "HGS Shift Animation: per-game vs per-minute Hollinger Game Score"
     )
   }, deleteFile = FALSE)
 }
