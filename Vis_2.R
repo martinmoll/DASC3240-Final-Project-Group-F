@@ -105,7 +105,13 @@ vis2_ui <- function() {
       card(
         card_header("Minutes vs. Per‑Minute Efficiency"),
         card_body(
-          plotlyOutput("vis2_plot", height = "500px")
+          plotlyOutput("vis2_plot", height = "500px"),
+          
+          # box for the legend text 
+          div(
+            style = "margin-top: 15px; padding: 8px 12px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; text-align: center; font-size: 12px;",
+            "🔴 Red dashed = Starter average &nbsp;&nbsp;|&nbsp;&nbsp; 🟢 Green dotted = Starter best"
+          )
         )
       ),
       
@@ -200,29 +206,16 @@ vis2_server <- function(input, output, session) {
                  size = 0.8) +                    # starter best line
       labs(title = title_text,
            x = "Minutes Per Game",
-           y = y_label) +                         # removed color legend label
+           y = y_label) +
       theme_minimal() +
-      theme(legend.position = "none",              # remove any lingering legend
+      theme(legend.position = "none",
             axis.title.x = element_text(margin = margin(t = 15))) +
       scale_y_continuous(labels = scales::number_format(accuracy = 0.01))
     
-    # Convert to interactive plotly and adjust layout
+    # Convert to interactive plotly (no annotation inside the plot)
     ggplotly(p, tooltip = "text") %>%
       layout(
-        legend = list(orientation = "h", y = -0.28),   # horizontal legend (now empty)
-        margin = list(b = 130, t = 50),                # extra bottom margin for annotation
-        annotations = list(
-          list(
-            x = 0.5,
-            y = -0.18,
-            xref = "paper",
-            yref = "paper",
-            text = "🔴 Red dashed = Starter average &nbsp;&nbsp;|&nbsp;&nbsp; 🟢 Green dotted = Starter best",
-            showarrow = FALSE,
-            font = list(size = 10),
-            xanchor = "center"
-          )
-        )
+        margin = list(b = 30, t = 50)  #
       )
   })
 }
