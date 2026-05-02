@@ -11,7 +11,7 @@ per-minute production rivals that of starters.
 ```r
 shiny::runGitHub("test1-dasc3240-finalproject", "martinmoll")
 ```
-
+Paste in Rstudio's console.
 ### Option 2: Clone and run locally
 
 ```bash
