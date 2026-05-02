@@ -53,25 +53,21 @@ vis2_data <- basketball %>%
 # UI — defines what the user sees
 # =============================================================================
 vis2_ui <- function() {
-  # nav_panel() creates a tab inside a page_navbar layout (used in app.R)
   nav_panel(
-    title = "Player Performance",           # Tab name
-    icon  = icon("chart-scatter"),          # Fontawesome icon for the tab
+    title = "Player Performance",
+    icon  = icon("chart-scatter"),
     
-    # layout_sidebar() creates a sidebar + main content area
     layout_sidebar(
-      # Sidebar panel with user controls
       sidebar = sidebar(
         title = "Individual Player Performance",
         width = 300,
         
-        # --- New text right under the sidebar title ---
-        tags$p(
-          style = "font-size: 14px; margin-top: -5px; margin-bottom: 15px;",
-          "Let's take a deeper dive at a more granular level at each player."
-        ),
+        # Context text 
+        p("Let's take a deeper dive at a more granular level at each player."),
         
-        # --- Filters (moved down) ---
+        hr(),
+        
+        # Filters
         selectInput(
           inputId  = "vis2_metric",
           label    = "Choose Metric:",
@@ -91,37 +87,36 @@ vis2_ui <- function() {
           selected  = "bench"
         ),
         
-        # --- New paragraph under the filters ---
-        tags$p(
-          style = "font-size: 12px; color: #2c3e50; margin-top: 15px;",
-          "dynamically switch metrics/player types to quickly spot efficient bench players. ",
-          "Players above the red dotted line are performing better than starter average, ",
-          "players above the green dotted line are performing better than best starter performance."
-        )
+        hr(),
+        
+        # Explanation of how to read the chart 
+        p(strong("How to read this chart:")),
+        p("Dynamically switch metrics/player types to quickly spot efficient bench players."),
+        p("Players ", strong("above the red dashed line"), " are performing better than the starter average."),
+        p("Players ", strong("above the green dotted line"), " are performing better than the best starter performance."),
+        
+        hr(),
+        
+        # Hover tip
+        p(em("Hover over any point to see player details."))
       ),
       
-      # Main content area: two cards stacked vertically
-      
-      # Card 1: Scatterplot
+      # Main content area
       card(
         card_header("Minutes vs. Per‑Minute Efficiency"),
         card_body(
-          plotlyOutput("vis2_plot", height = "500px")  # interactive plot output
+          plotlyOutput("vis2_plot", height = "500px")
         )
       ),
       
-      # Card 2: Concise analysis text (description + insights)
       card(
         card_header("📊 Analysis"),
         card_body(
           tags$div(
-            
-            tags$p(
-              tags$ul(
-                tags$li("Bench efficiency – Many bench players exceed starter average in points, rebounds, and FG%, showing deep benches add value."),
-                tags$li("Bench can beat the best – For the same three metrics, some bench players surpass even the best starter’s value (except assists)."),
-                tags$li("Assists separate roles – No bench player reaches the top starter’s assist rate; playmaking remains starter‑dominant.")
-              )
+            tags$ul(
+              tags$li("Bench efficiency – Many bench players exceed starter average in points, rebounds, and FG%, showing deep benches add value."),
+              tags$li("Bench can beat the best – For the same three metrics, some bench players surpass even the best starter’s value (except assists)."),
+              tags$li("Assists separate roles – No bench player reaches the top starter’s assist rate; playmaking remains starter‑dominant.")
             )
           )
         )
@@ -177,7 +172,7 @@ vis2_server <- function(input, output, session) {
                     "rebounds" = data$rebounds_per_minute,
                     "fg"       = data$field_goal_pct)
     
-    # Human-readable y-axis label
+    # y-axis label
     y_label <- switch(input$vis2_metric,
                       "points"   = "Points Per Minute",
                       "assists"  = "Assists Per Minute",
@@ -190,7 +185,7 @@ vis2_server <- function(input, output, session) {
       y_label, "vs Playing Time (≥8 MPG)"
     )
     
-    # Build the ggplot – removed color = team, added constant color = "steelblue"
+    # Build the ggplot
     p <- ggplot(data, aes(x = avg_minutes_played,
                           y = y_var,
                           text = player_label)) +   # text = tooltip content
