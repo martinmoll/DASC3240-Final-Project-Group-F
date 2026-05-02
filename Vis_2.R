@@ -62,10 +62,16 @@ vis2_ui <- function() {
     layout_sidebar(
       # Sidebar panel with user controls
       sidebar = sidebar(
-        title = "Controls",
+        title = "Individual Player Performance",
         width = 300,
         
-        # Dropdown menu to choose which performance metric to display
+        # --- New text right under the sidebar title ---
+        tags$p(
+          style = "font-size: 14px; margin-top: -5px; margin-bottom: 15px;",
+          "Let's take a deeper dive at a more granular level at each player."
+        ),
+        
+        # --- Filters (moved down) ---
         selectInput(
           inputId  = "vis2_metric",
           label    = "Choose Metric:",
@@ -78,12 +84,19 @@ vis2_ui <- function() {
           selected = "points"
         ),
         
-        # Radio buttons to select bench or starter players
         radioButtons(
           inputId   = "vis2_player_type",
           label     = "Player Type:",
           choices   = c("Bench" = "bench", "Starter" = "starter"),
           selected  = "bench"
+        ),
+        
+        # --- New paragraph under the filters ---
+        tags$p(
+          style = "font-size: 12px; color: #2c3e50; margin-top: 15px;",
+          "dynamically switch metrics/player types to quickly spot efficient bench players. ",
+          "Players above the red dotted line are performing better than starter average, ",
+          "players above the green dotted line are performing better than best starter performance."
         )
       ),
       
@@ -99,22 +112,11 @@ vis2_ui <- function() {
       
       # Card 2: Concise analysis text (description + insights)
       card(
-        card_header("📊 Description & Analysis"),
+        card_header("📊 Analysis"),
         card_body(
           tags$div(
+            
             tags$p(
-              strong("Description & purpose:"), 
-              "Scatterplot exploring minutes per game vs. per‑minute metrics (points, assists, rebounds, FG%) separately for bench and starters. ",
-              "Color = team; hover = player details. Red dashed = starter average; green dotted = best starter value. ",
-              "Minimum 8 MPG filters out low‑sample noise."
-            ),
-            tags$p(
-              strong("Why interactive:"), 
-              "Users dynamically switch metrics/player types; tooltips avoid clutter. ",
-              "Supports exploratory analysis – coaches/analysts can quickly spot efficient bench players or gaps to fill."
-            ),
-            tags$p(
-              strong("Insights:"), 
               tags$ul(
                 tags$li("Bench efficiency – Many bench players exceed starter average in points, rebounds, and FG%, showing deep benches add value."),
                 tags$li("Bench can beat the best – For the same three metrics, some bench players surpass even the best starter’s value (except assists)."),
@@ -188,12 +190,11 @@ vis2_server <- function(input, output, session) {
       y_label, "vs Playing Time (≥8 MPG)"
     )
     
-    # Build the ggplot
+    # Build the ggplot – removed color = team, added constant color = "steelblue"
     p <- ggplot(data, aes(x = avg_minutes_played,
                           y = y_var,
-                          color = team,
                           text = player_label)) +   # text = tooltip content
-      geom_point(alpha = 0.65, size = 1.8) +        # scatter points
+      geom_point(alpha = 0.65, size = 1.8, color = "steelblue") +   # all points same color
       geom_hline(yintercept = avg_line, 
                  linetype = "dashed", 
                  color = "red", 
@@ -204,17 +205,16 @@ vis2_server <- function(input, output, session) {
                  size = 0.8) +                    # starter best line
       labs(title = title_text,
            x = "Minutes Per Game",
-           y = y_label,
-           color = "Team") +
+           y = y_label) +                         # removed color legend label
       theme_minimal() +
-      theme(legend.position = "bottom",
+      theme(legend.position = "none",              # remove any lingering legend
             axis.title.x = element_text(margin = margin(t = 15))) +
       scale_y_continuous(labels = scales::number_format(accuracy = 0.01))
     
     # Convert to interactive plotly and adjust layout
     ggplotly(p, tooltip = "text") %>%
       layout(
-        legend = list(orientation = "h", y = -0.28),   # horizontal legend below plot
+        legend = list(orientation = "h", y = -0.28),   # horizontal legend (now empty)
         margin = list(b = 130, t = 50),                # extra bottom margin for annotation
         annotations = list(
           list(
