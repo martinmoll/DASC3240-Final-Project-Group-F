@@ -110,7 +110,7 @@ vis2_ui <- function() {
           # box for the legend text 
           div(
             style = "margin-top: 15px; padding: 8px 12px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; text-align: center; font-size: 12px;",
-            "🔴 Red dashed = Starter average &nbsp;&nbsp;|&nbsp;&nbsp; 🟢 Green dotted = Starter best"
+            "🔴 Red dashed = Starter average | 🟢 Green dotted = Starter best"
           )
         )
       ),
