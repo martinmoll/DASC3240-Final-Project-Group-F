@@ -92,7 +92,7 @@ vis2_ui <- function() {
         # Explanation of how to read the chart 
         p(strong("How to read this chart:")),
         p("Dynamically switch metrics/player types to quickly spot efficient bench players."),
-        p("Players ", strong("above the red dashed line"), " are performing better than the starter average."),
+        p("Players ", strong("above the red dashed line"), " are performing better than the 75 percentile of starters/hidden gems."),
         p("Players ", strong("above the green dotted line"), " are performing better than the best starter performance."),
         
         hr(),
@@ -110,7 +110,7 @@ vis2_ui <- function() {
           # box for the legend text 
           div(
             style = "margin-top: 15px; padding: 8px 12px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; text-align: center; font-size: 12px;",
-            "🔴 Red dashed = Starter average | 🟢 Green dotted = Starter best"
+            "🔴 Red dashed = Starter 75 percentile | 🟢 Green dotted = Starter best"
           )
         )
       ),
@@ -120,9 +120,9 @@ vis2_ui <- function() {
         card_body(
           tags$div(
             tags$ul(
-              tags$li("Bench efficiency – Many bench players exceed starter average in points, rebounds, and FG%, showing deep benches add value."),
+              tags$li("Bench efficiency – Many bench players exceed 75 percentile of starters in points, rebounds, and FG%, showing deep benches add value."),
               tags$li("Bench can beat the best – For the same three metrics, some bench players surpass even the best starter’s value (except assists)."),
-              tags$li("Assists separate roles – No bench player reaches the top starter’s assist rate; playmaking remains starter‑dominant.")
+              tags$li("There are a lot of hidden gems in the league who are extremely efficient")
             )
           )
         )
@@ -145,14 +145,14 @@ vis2_server <- function(input, output, session) {
     }
   })
   
-  # Reactive: compute the starter average for the currently selected metric
-  starter_avg_metric <- reactive({
+  # Reactive: compute the starter 75 percentile for the currently selected metric
+  starter_percentile_75 <- reactive({
     starter_data <- vis2_data %>% filter(starter == TRUE)
     switch(input$vis2_metric,
-           "points"   = mean(starter_data$points_per_minute, na.rm = TRUE),
-           "assists"  = mean(starter_data$assists_per_minute, na.rm = TRUE),
-           "rebounds" = mean(starter_data$rebounds_per_minute, na.rm = TRUE),
-           "fg"       = mean(starter_data$field_goal_pct, na.rm = TRUE))
+           "points"   = quantile(starter_data$points_per_minute, 0.75, na.rm = TRUE),
+           "assists"  = quantile(starter_data$assists_per_minute, 0.75, na.rm = TRUE),
+           "rebounds" = quantile(starter_data$rebounds_per_minute, 0.75, na.rm = TRUE),
+           "fg"       = quantile(starter_data$field_goal_pct, 0.75, na.rm = TRUE))
   })
   
   # Reactive: compute the starter best (maximum) for the currently selected metric
@@ -168,7 +168,7 @@ vis2_server <- function(input, output, session) {
   # Render the interactive plot using plotly
   output$vis2_plot <- renderPlotly({
     data <- filtered_data()                    # current player type subset
-    avg_line <- starter_avg_metric()           # red dashed line value
+    percentile_line <- starter_percentile_75()           # red dashed line value
     best_line <- starter_best_metric()         # green dotted line value
     
     # Extract y-axis values based on selected metric
@@ -196,10 +196,7 @@ vis2_server <- function(input, output, session) {
                           y = y_var,
                           text = player_label)) +   # text = tooltip content
       geom_point(alpha = 0.65, size = 1.8, color = "steelblue") +   # all points same color
-      geom_hline(yintercept = avg_line, 
-                 linetype = "dashed", 
-                 color = "red", 
-                 size = 0.8) +                     # starter average line
+      geom_hline(yintercept = percentile_line, linetype = "dashed", color = "red", size = 0.8) +                     # starter 75 percentile line
       geom_hline(yintercept = best_line, 
                  linetype = "dotted", 
                  color = "green", 
