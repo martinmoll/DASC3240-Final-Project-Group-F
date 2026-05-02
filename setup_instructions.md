@@ -2,9 +2,9 @@
 
 ## Testing the App
 
-### Option 1: Run directly from GitHub (no cloning needed)
+### Option 1: Run directly from GitHub(no need to clone)
 
-Open R or RStudio and run:
+Open R or RStudio and paste in console:
 
 ```r
 shiny::runGitHub("test1-dasc3240-finalproject", "martinmoll")
@@ -40,7 +40,7 @@ source your file.
 
 ### Step 1: Copy this template into a new file
 
-Save it as something like `vis_yourname.R` in the project root folder
+Save it as something like `visNUMBER_YOURNAME.R` in the project root folder
 (same directory as `app.R`).
 
 ```r
