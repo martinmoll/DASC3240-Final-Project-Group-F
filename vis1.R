@@ -36,6 +36,18 @@ library(bayesrules)
 data(basketball, package = "bayesrules")
 
 vis1_data <- basketball %>%
+  # Remove rows with missing player names (2 NaN rows in the dataset)
+  filter(!is.na(player_name)) %>%
+  # Remove "TOT" (total) rows for players who switched teams mid-season.
+  # These players have a TOT row aggregating all teams plus individual
+  # rows per team. We keep only the individual team rows.
+  filter(team != "TOT") %>%
+  # For players who appear on multiple teams, keep only the LAST team
+  # they played for (last row per player in the dataset, which
+  # basketball-reference orders chronologically).
+  group_by(player_name) %>%
+  slice_tail(n = 1) %>%
+  ungroup() %>%
   mutate(
     # The starter column is numeric (1/0), not logical or character.
     role = ifelse(starter == 1, "Starter", "Bench"),
@@ -77,8 +89,8 @@ vis1_permin <- vis1_data %>%
     `FG Pct`  = mean(field_goal_pct, na.rm = TRUE),
     .groups   = "drop"
   ) %>%
-  # Reshape: one row per stat, with Starter and Bench as columns
-  # This structure is needed for the dumbbell (two points per row)
+  # Reshape: one row per stat, with Starter and Bench as columns.
+  # This structure is needed for the dumbbell (two points per row).
   pivot_longer(-role, names_to = "stat", values_to = "value") %>%
   pivot_wider(names_from = role, values_from = value) %>%
   mutate(
@@ -90,8 +102,8 @@ vis1_permin <- vis1_data %>%
                                        "Turnovers")))
   )
 
-# Per-game view: shows production VOLUME (total per game)
-# This naturally favours starters who play more minutes
+# Per-game view: shows production VOLUME (total per game).
+# This naturally favours starters who play more minutes.
 vis1_pergame <- vis1_data %>%
   group_by(role) %>%
   summarise(
@@ -177,7 +189,7 @@ vis1_ui <- function() {
         )
       ),
       
-      # --- Insight card: dynamically updates based on toggle ---
+      # Insight card: dynamically updates based on toggle ----------------------
       # This addresses the rubric requirement for "insights" and "so what?"
       card(
         card_header("Key Insight"),
@@ -277,7 +289,7 @@ vis1_server <- function(input, output, session) {
       theme_minimal(base_size = 14) +
       theme(
         # Remove horizontal grid lines since the dumbbell segments
-        # already provide the visual structure                    
+        # already provide the visual structure
         panel.grid.major.y = element_blank(),
         legend.position = "none"
       )
