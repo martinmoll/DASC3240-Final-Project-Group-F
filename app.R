@@ -1,22 +1,22 @@
-# =============================================================================
-# WNBA 2019 Moneyball Analysis - Main Application
-# =============================================================================
+# -----------------------------------------------------------------------------
+# WNBA 2019 Hidden Gem Analysis - Main Application
+# -----------------------------------------------------------------------------
 # This is the main entry point for the Shiny app. It sources individual
 # visualization tabs from separate .R files and assembles them into a
 # multi-tab navigation layout using bslib::page_navbar().
 #
 # To add a new tab:
-#   1. Create a file (e.g., vis_yourname.R) with _ui() and _server() functions
-#   2. Add source("vis_yourname.R") below
+#   1. Create a file (e.g., visNUMBER_YOURNAME.R) with _ui() and _server() functions
+#   2. Add source("visNUMBER_YOURNAME.R") below
 #   3. Add the _ui() call inside page_navbar()
 #   4. Add the _server() call inside the server function
 #
 # To run: click "Run App" in RStudio, or use
 #   shiny::runGitHub("test1-dasc3240-finalproject", "martinmoll")
-# =============================================================================
+# -----------------------------------------------------------------------------
 
 
-# Source visualization modules -------------------------------------------------
+# Source visualization modules ------------------------------------------------
 # Each file defines a _ui() and _server() function pair
 source("scripts/vis1.R")              # Dumbbell chart: Starters vs. Bench
 source("scripts/vis1_animation.R")    # Moneyball Shift animation
@@ -28,9 +28,9 @@ library(bslib)
 library(markdown)  # Required for includeMarkdown() in the About tab
 
 
-# =============================================================================
+# -----------------------------------------------------------------------------
 # UI: Assemble all tabs into a navbar layout
-# =============================================================================
+# -----------------------------------------------------------------------------
 ui <- page_navbar(
   title = "WNBA 2019 - Finding Hidden Gems",
   theme = bs_theme(bootswatch = "flatly"),
@@ -49,9 +49,9 @@ ui <- page_navbar(
 )
 
 
-# =============================================================================
+# -----------------------------------------------------------------------------
 # Server: Wire up all tab server functions
-# =============================================================================
+# -----------------------------------------------------------------------------
 server <- function(input, output, session) {
   vis1_server(input, output, session)
   vis1_anim_server(input, output, session)
@@ -60,5 +60,5 @@ server <- function(input, output, session) {
 }
 
 
-# Run the app ------------------------------------------------------------------
+# Run the app -----------------------------------------------------------------
 shinyApp(ui, server)

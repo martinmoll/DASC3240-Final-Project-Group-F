@@ -1,6 +1,6 @@
-# =============================================================================
+# -----------------------------------------------------------------------------
 # VIS1: Interactive Dumbbell Chart - Starters vs. Bench Comparison
-# =============================================================================
+# -----------------------------------------------------------------------------
 # Author: Martin Moll
 # Purpose: Opening visualization for the Moneyball narrative. Shows that
 #          bench players produce at similar per-minute rates to starters,
@@ -17,7 +17,7 @@
 #   toggle lets the user discover the insight themselves: starters dominate
 #   on volume, but the gap shrinks dramatically on a rate basis. This
 #   discovery moment is more persuasive than being told.
-# =============================================================================
+# -----------------------------------------------------------------------------
 
 
 # Load packages ---------------------------------------------------------------
@@ -127,9 +127,9 @@ vis1_pergame <- vis1_data %>%
   )
 
 
-# =============================================================================
+# -----------------------------------------------------------------------------
 # UI COMPONENT
-# =============================================================================
+# -----------------------------------------------------------------------------
 # The dumbbell chart is the first tab in the app's narrative flow.
 # It's intentionally simple and visual to ease the audience in before
 # the more complex Game Score analysis.
@@ -202,9 +202,9 @@ vis1_ui <- function() {
 }
 
 
-# =============================================================================
+# -----------------------------------------------------------------------------
 # SERVER COMPONENT
-# =============================================================================
+# -----------------------------------------------------------------------------
 vis1_server <- function(input, output, session) {
   
   # Reactive data: switches between pre-computed per-minute and per-game
