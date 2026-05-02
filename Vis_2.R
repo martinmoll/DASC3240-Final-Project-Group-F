@@ -53,19 +53,21 @@ vis2_data <- basketball %>%
 # UI — defines what the user sees
 # =============================================================================
 vis2_ui <- function() {
-  # nav_panel() creates a tab inside a page_navbar layout (used in app.R)
   nav_panel(
-    title = "Player Performance",           # Tab name
-    icon  = icon("chart-scatter"),          # Fontawesome icon for the tab
+    title = "Player Performance",
+    icon  = icon("chart-scatter"),
     
-    # layout_sidebar() creates a sidebar + main content area
     layout_sidebar(
-      # Sidebar panel with user controls
       sidebar = sidebar(
-        title = "Controls",
+        title = "Individual Player Performance",
         width = 300,
         
-        # Dropdown menu to choose which performance metric to display
+        # Context text 
+        p("Let's take a deeper dive at a more granular level at each player."),
+        
+        hr(),
+        
+        # Filters
         selectInput(
           inputId  = "vis2_metric",
           label    = "Choose Metric:",
@@ -78,48 +80,43 @@ vis2_ui <- function() {
           selected = "points"
         ),
         
-        # Radio buttons to select bench or starter players
         radioButtons(
           inputId   = "vis2_player_type",
           label     = "Player Type:",
           choices   = c("Bench" = "bench", "Starter" = "starter"),
           selected  = "bench"
-        )
+        ),
+        
+        hr(),
+        
+        # Explanation of how to read the chart 
+        p(strong("How to read this chart:")),
+        p("Dynamically switch metrics/player types to quickly spot efficient bench players."),
+        p("Players ", strong("above the red dashed line"), " are performing better than the starter average."),
+        p("Players ", strong("above the green dotted line"), " are performing better than the best starter performance."),
+        
+        hr(),
+        
+        # Hover tip
+        p(em("Hover over any point to see player details."))
       ),
       
-      # Main content area: two cards stacked vertically
-      
-      # Card 1: Scatterplot
+      # Main content area
       card(
         card_header("Minutes vs. Per‑Minute Efficiency"),
         card_body(
-          plotlyOutput("vis2_plot", height = "500px")  # interactive plot output
+          plotlyOutput("vis2_plot", height = "500px")
         )
       ),
       
-      # Card 2: Concise analysis text (description + insights)
       card(
-        card_header("📊 Description & Analysis"),
+        card_header("📊 Analysis"),
         card_body(
           tags$div(
-            tags$p(
-              strong("Description & purpose:"), 
-              "Scatterplot exploring minutes per game vs. per‑minute metrics (points, assists, rebounds, FG%) separately for bench and starters. ",
-              "Color = team; hover = player details. Red dashed = starter average; green dotted = best starter value. ",
-              "Minimum 8 MPG filters out low‑sample noise."
-            ),
-            tags$p(
-              strong("Why interactive:"), 
-              "Users dynamically switch metrics/player types; tooltips avoid clutter. ",
-              "Supports exploratory analysis – coaches/analysts can quickly spot efficient bench players or gaps to fill."
-            ),
-            tags$p(
-              strong("Insights:"), 
-              tags$ul(
-                tags$li("Bench efficiency – Many bench players exceed starter average in points, rebounds, and FG%, showing deep benches add value."),
-                tags$li("Bench can beat the best – For the same three metrics, some bench players surpass even the best starter’s value (except assists)."),
-                tags$li("Assists separate roles – No bench player reaches the top starter’s assist rate; playmaking remains starter‑dominant.")
-              )
+            tags$ul(
+              tags$li("Bench efficiency – Many bench players exceed starter average in points, rebounds, and FG%, showing deep benches add value."),
+              tags$li("Bench can beat the best – For the same three metrics, some bench players surpass even the best starter’s value (except assists)."),
+              tags$li("Assists separate roles – No bench player reaches the top starter’s assist rate; playmaking remains starter‑dominant.")
             )
           )
         )
@@ -175,7 +172,7 @@ vis2_server <- function(input, output, session) {
                     "rebounds" = data$rebounds_per_minute,
                     "fg"       = data$field_goal_pct)
     
-    # Human-readable y-axis label
+    # y-axis label
     y_label <- switch(input$vis2_metric,
                       "points"   = "Points Per Minute",
                       "assists"  = "Assists Per Minute",
@@ -191,9 +188,8 @@ vis2_server <- function(input, output, session) {
     # Build the ggplot
     p <- ggplot(data, aes(x = avg_minutes_played,
                           y = y_var,
-                          color = team,
                           text = player_label)) +   # text = tooltip content
-      geom_point(alpha = 0.65, size = 1.8) +        # scatter points
+      geom_point(alpha = 0.65, size = 1.8, color = "steelblue") +   # all points same color
       geom_hline(yintercept = avg_line, 
                  linetype = "dashed", 
                  color = "red", 
@@ -204,17 +200,16 @@ vis2_server <- function(input, output, session) {
                  size = 0.8) +                    # starter best line
       labs(title = title_text,
            x = "Minutes Per Game",
-           y = y_label,
-           color = "Team") +
+           y = y_label) +                         # removed color legend label
       theme_minimal() +
-      theme(legend.position = "bottom",
+      theme(legend.position = "none",              # remove any lingering legend
             axis.title.x = element_text(margin = margin(t = 15))) +
       scale_y_continuous(labels = scales::number_format(accuracy = 0.01))
     
     # Convert to interactive plotly and adjust layout
     ggplotly(p, tooltip = "text") %>%
       layout(
-        legend = list(orientation = "h", y = -0.28),   # horizontal legend below plot
+        legend = list(orientation = "h", y = -0.28),   # horizontal legend (now empty)
         margin = list(b = 130, t = 50),                # extra bottom margin for annotation
         annotations = list(
           list(
