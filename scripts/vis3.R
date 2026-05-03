@@ -1,5 +1,15 @@
+# -----------------------------------------------------------------------------
+# VISUALIZATION 3: TOP PLAYERS FOR EACH SCORING METHOD
+# -----------------------------------------------------------------------------
+#
+# This visualization shows the top players by each categorization of scoring
+# method. The scoring methods can be divided into two groups and a scoring
+# attempt generally belong to one of the members of both groups.
+#
+# Membership within a group is, however, mutually exclusive
+
 library(shiny)
-library(ggplot2)
+library(plotly)
 library(tidyverse)
 library(bayesrules)
 
@@ -20,8 +30,10 @@ vis3_data <- vis3_data[vis3_data$team != "TOT", ]
 vis3_data <- vis3_data[!duplicated(vis3_data$player_name, fromLast = TRUE), ]
 
 vis3_method_dict = list(
+  # GROUP 1
   "Two pointers" = "avg_two_pointers", 
   "Three pointers" = "avg_three_pointers",
+  # GROUP 2
   "Free throws" = "avg_free_throws",
   "Field Goal" = "avg_field_goals"
   )
@@ -72,18 +84,19 @@ layout_sidebar(
     width = 400,
     
     # Context text 
-    p("See how each scoring method is favoured by players"),
+    p("See how each scoring method is favoured by players. Note that a score attempt will generally be in two groups (by points + by other characteristics) at the same time."),
     
     hr(),
     
     # Filters
     uiOutput("selectInput"),
-    sliderInput(
-      inputId = "slice",
-      label = "Range of players to show",
-      min = 1,
-      max = length(vis3_data$player_name),
-      value = c(1, 30)),
+    radioButtons(
+      inputId   = "player_type",
+      label     = "Player Type:",
+      choices   = c("Bench" = "bench", "Starter" = "starter", "All" = "all"),
+      selected  = "bench"
+    ),
+    uiOutput("sliderInput"),
     
     hr(),
     
@@ -113,6 +126,7 @@ layout_sidebar(
       tags$div(
         tags$ul(
           p("Although top players performs quite well regardless of the scoring methods, it is not without variations, especially between two pointers and three pointers."),
+          p("Starter players, surprisingly, makes more scoring attempts than bench players, though the low success rate makes them still score less than bench players."),
           p("The situations where a field goal can be performed is limited, (particularly, \"slam dunk\"s), but when performed it is likely to succeed.")
           
         )
@@ -125,6 +139,16 @@ layout_sidebar(
 
 # Server
 vis3_server <- function(input, output, session) {
+  eligible_data <- reactive({
+    if (input$player_type == "bench") {
+      eligible_data <- vis3_data %>% filter(starter == FALSE)   # bench players
+    } else if (input$player_type == "starter") {
+      eligible_data <- vis3_data %>% filter(starter == TRUE)    # starters
+    } else {
+      vis3_data
+    }
+  })
+
   output$barPlot <- renderPlotly({
     # This plot is a stacked bar chart technically implemented as
     # grouped bar chart with one bar guaranteed to be no longer
@@ -138,7 +162,7 @@ vis3_server <- function(input, output, session) {
       return() # nope, no graph yet
     }
 
-    proc_data = vis3_data %>%
+    proc_data = eligible_data() %>%
       arrange(
         desc(!!sym(vis3_method_dict[[input$method]])),
         desc(!!sym(vis3_attempts(vis3_method_dict[[input$method]])))) %>%
@@ -172,7 +196,7 @@ vis3_server <- function(input, output, session) {
         categoryorder = "array",
         categoryarray = unlist(proc_data["player_name"], use.names = FALSE)),
         #title = 'PLACEHOLDER TITLE', # not needed, we show with html
-        yaxis = list(title = paste("Mean", tolower(input$method))),
+        yaxis = list(title = paste("Mean", tolower(input$method), "per game")),
         legend = list(x = 0.85, y = 1.0)
       )
   })
@@ -185,8 +209,23 @@ vis3_server <- function(input, output, session) {
     )
   })
 
+  output$sliderInput <- renderUI({
+    sliderInput(
+      inputId = "slice",
+      label = "Range of players to show",
+      min = 1,
+      max = nrow(eligible_data()),
+      value = c(1, min(nrow(eligible_data()), 30)))
+  })
+
   output$plotTitle <- renderUI({
     # this one can work with empty hopefully
-    paste0("Top players at ", tolower(input$method))
+    if (input$player_type == "bench") {
+      paste0("Top bench players at ", tolower(input$method))
+    } else if (input$player_type == "starter") {
+      paste0("Top starter players at ", tolower(input$method))
+    } else {
+      paste0("Top players at ", tolower(input$method))
+    }
   })
 }

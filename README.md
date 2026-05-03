@@ -1,28 +1,31 @@
-# WNBA 2019 Moneyball Analysis
 
-A Shiny application exploring the 2019 WNBA season through Moneyball
-analytics: using data to identify undervalued bench players whose
-per-minute production rivals that of starters.
+# WNBA 2019 - Finding Hidden Gems
+
+A Shiny application exploring the 2019 WNBA season through analytics:
+using data to identify undervalued bench players whose
+per-minute production rivals that of starters - what we call "Hidden Gems".
 
 ## How to Run
 
 ### Option 1: From GitHub (no cloning needed)
 
-```r
-shiny::runGitHub("test1-dasc3240-finalproject", "martinmoll")
+``` r
+shiny::runGitHub("DASC3240-Final-Project-Group-F", "martinmoll")
 ```
-Paste in Rstudio's console.
+
+Paste in Rstudio's console. 
+
 ### Option 2: Clone and run locally
 
-```bash
-git clone https://github.com/martinmoll/test1-dasc3240-finalproject.git
+``` bash
+git clone https://github.com/martinmoll/DASC3240-Final-Project-Group-F.git
 ```
 
 Open the `.Rproj` file in RStudio and click "Run App".
 
 ## Required Packages
 
-```r
+``` r
 install.packages(c(
   "shiny", "bslib", "tidyverse", "plotly",
   "bayesrules", "markdown", "gganimate", "gifski"
@@ -31,13 +34,14 @@ install.packages(c(
 
 ## Dataset
 
-- **Source:** `bayesrules::basketball` (CRAN package), originally from
-  [basketball-reference.com](https://www.basketball-reference.com/wnba/players/)
-- **License:** `bayesrules` package is GPL (>= 3)
-- **Coverage:** 146 WNBA players, 2019 season, 30 variables
-- **Key variables:** per-game averages for points, rebounds, assists,
-  steals, blocks, turnovers, field goal/3-point/free throw percentages,
-  plus player demographics (age, height, weight) and team info
+-   **Source:** `bayesrules::basketball` (CRAN package), originally from
+    [basketball-reference.com](https://www.basketball-reference.com/wnba/players/)
+-   **License:** `bayesrules` package is GPL (\>= 3)
+-   **Coverage:** 146 WNBA players, 2019 season, 30 variables
+-   **Key variables:** per-game averages for points, rebounds, assists,
+    steals, blocks, turnovers, field goal/3-point/free throw
+    percentages, plus player demographics (age, height, weight) and team
+    info
 
 ## Methodology
 
@@ -49,25 +53,23 @@ per-minute Game Score reaches the 75th percentile are classified as
 
 ## App Structure
 
-| File | Description |
-|------|-------------|
-| `app.R` | Main app: sources tabs, assembles navbar layout |
-| `vis1.R` | Dumbbell chart comparing starters vs. bench |
-| `vis1_animation.R` | Animated Moneyball Shift (gganimate) |
-| `about.md` | Dataset background, license, methodology |
-| `setup_instructions.md` | Guide for group members adding tabs |
-| `TEMPLATE_visX.R` | Template for new visualization tabs |
+| File | Description                                                    
+|-----------------------------------------------------------------------------|
+| `app.R`       | Main app: sources tabs, assembles navbar layout             |
+| `scripts/...` | R scripts for our visualizations                            | 
+| `about.md`    | Dataset background, license, methodology                    |
+
 
 ## Group Contributions
 
-| Member | Contribution |
-|--------|-------------|
-| Martin Møllenhus | Visualization 1: dumbbell chart, Game Score animation |
-| [Member 2] | [Description] |
-| CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts |
-| YIP, Chi Ho | Visualization 4: players leaderboard, Game score research, players photos dataset |
-| [Member 5] | [Description] |
+| Member              | Contribution                                          |
+|---------------------|-------------------------------------------------------|
+| Lau, Shing Chung    | Introduction file                                     |
+| Møllenhus, Martin   | Visualization 1: Dumbbell chart, Game Score animation |
+| Liao, Win           | Visualization 2:                                      |
+| CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts            |
+| Yip, Chi Ho         | Visualization 4: Leaderboard, photos, game score      |
 
 ## License
 
-GPL (>= 3)
+GPL (\>= 3)

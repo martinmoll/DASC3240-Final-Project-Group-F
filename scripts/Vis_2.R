@@ -60,7 +60,7 @@ vis2_ui <- function() {
     layout_sidebar(
       sidebar = sidebar(
         title = "Individual Player Performance",
-        width = 300,
+        width = 400,
         
         # Context text 
         p("Let's take a deeper dive at a more granular level at each player."),

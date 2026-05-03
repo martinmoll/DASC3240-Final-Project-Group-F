@@ -1,7 +1,6 @@
 # -----------------------------------------------------------------------------
 # VIS1: Interactive Dumbbell Chart - Starters vs. Bench Comparison
 # -----------------------------------------------------------------------------
-# Author: Martin Moll
 # Purpose: Opening visualization for the Moneyball narrative. Shows that
 #          bench players produce at similar per-minute rates to starters,
 #          establishing the premise that the gap is about opportunity
@@ -10,13 +9,12 @@
 # Integration:
 #   1. source("vis1.R") in app.R
 #   2. Add vis1_ui() inside page_navbar()
-#   3. Call vis1_server(input, output, session) inside server function
+#   3. Call vis1_server(input, output, session) inside the server function
 #
 # Interactivity justification:
-#   A static dumbbell could only show one view. The per-minute vs per-game
-#   toggle lets the user discover the insight themselves: starters dominate
-#   on volume, but the gap shrinks dramatically on a rate basis. This
-#   discovery moment is more persuasive than being told.
+# A static dumbbell could only show one view. The per-minute vs per-game
+# toggle lets the user discover the insight themselves: starters dominate
+# on volume, but the gap shrinks dramatically on a rate basis, as is expected.
 # -----------------------------------------------------------------------------
 
 
@@ -53,11 +51,11 @@ vis1_data <- basketball %>%
     role = ifelse(starter == 1, "Starter", "Bench"),
     role = factor(role, levels = c("Starter", "Bench"))
   ) %>%
-  # Filter to players averaging 5+ minutes per game. Players with fewer
+  # Filter to players averaging 8+ minutes per game. Players with fewer
   # minutes have volatile per-minute stats (e.g., 2 points in 1 minute
-  # = 2.0 pts/min, which is misleadingly high). The 5-minute threshold
-  # removes these outliers while keeping meaningful bench contributors.
-  filter(avg_minutes_played >= 5) %>%
+  # = 2.0 pts/min, which is misleadingly high).
+  
+  filter(avg_minutes_played >= 8) %>%
   mutate(
     # Per-minute stats: divide each per-game average by minutes played.
     # This controls for playing time so bench and starters can be
@@ -72,7 +70,7 @@ vis1_data <- basketball %>%
 
 
 # Pre-compute dumbbell data ---------------------------------------------------
-# We compute group averages for both views (per-minute and per-game)
+# Group averages are computed for both views (per-minute and per-game)
 # at load time rather than reactively, since the data doesn't change.
 # This avoids recalculating on every toggle.
 
@@ -90,7 +88,7 @@ vis1_permin <- vis1_data %>%
     .groups   = "drop"
   ) %>%
   # Reshape: one row per stat, with Starter and Bench as columns.
-  # This structure is needed for the dumbbell (two points per row).
+  # This structure seems to be needed for the dumbbell (two points per row).
   pivot_longer(-role, names_to = "stat", values_to = "value") %>%
   pivot_wider(names_from = role, values_from = value) %>%
   mutate(
@@ -130,7 +128,7 @@ vis1_pergame <- vis1_data %>%
 # -----------------------------------------------------------------------------
 # UI COMPONENT
 # -----------------------------------------------------------------------------
-# The dumbbell chart is the first tab in the app's narrative flow.
+# The dumbbell chart is the first of the tabs in the app with the visualizations
 # It's intentionally simple and visual to ease the audience in before
 # the more complex Game Score analysis.
 
@@ -142,9 +140,9 @@ vis1_ui <- function() {
     layout_sidebar(
       sidebar = sidebar(
         title = "The Case for Hidden Value",
-        width = 300,
+        width = 400,
         
-        # Context text explaining what the user is looking at
+        # Context text
         p("How do starters and bench players really compare?",
           "Toggle between per-minute and per-game stats to see",
           "the difference that playing time makes."),
@@ -153,7 +151,7 @@ vis1_ui <- function() {
         
         # Toggle: the core interactive element for this visualization.
         # Switching between views is the "discovery moment" where the
-        # user sees the Moneyball insight for themselves.
+        # user sees insight for themselves.
         radioButtons(
           inputId  = "vis1_mode",
           label    = "View Mode:",
@@ -193,8 +191,7 @@ vis1_ui <- function() {
         )
       ),
       
-      # Insight card: dynamically updates based on toggle ----------------------
-      # This addresses the rubric requirement for "insights" and "so what?"
+      # Insight card: dynamically updates based on toggle
       card(
         card_header("Key Insight"),
         card_body(
