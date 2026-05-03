@@ -13,7 +13,9 @@ per-minute production rivals that of starters - what we call "Hidden Gems".
 shiny::runGitHub("DASC3240-Final-Project-Group-F", "martinmoll")
 ```
 
-Paste in Rstudio's console. \### Option 2: Clone and run locally
+Paste in Rstudio's console. 
+
+### Option 2: Clone and run locally
 
 ``` bash
 git clone https://github.com/martinmoll/DASC3240-Final-Project-Group-F.git
@@ -62,7 +64,7 @@ per-minute Game Score reaches the 75th percentile are classified as
 
 | Member              | Contribution                                          |
 |---------------------|-------------------------------------------------------|
-| [Member 1]          | Introduction                                          |
+| Lau, Shing Chung    | Introduction file                                     |
 | Møllenhus, Martin   | Visualization 1: Dumbbell chart, Game Score animation |
 | Liao, Win           | Visualization 2:                                      |
 | CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts            |
