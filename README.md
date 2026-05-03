@@ -51,22 +51,23 @@ per-minute Game Score reaches the 75th percentile are classified as
 
 | File | Description |
 |------|-------------|
-| `app.R` | Main app: sources tabs, assembles navbar layout |
-| `vis1.R` | Dumbbell chart comparing starters vs. bench |
-| `vis1_animation.R` | Animated Moneyball Shift (gganimate) |
-| `about.md` | Dataset background, license, methodology |
-| `setup_instructions.md` | Guide for group members adding tabs |
-| `TEMPLATE_visX.R` | Template for new visualization tabs |
+| `app.R`             | Main app: sources tabs, assembles navbar layout 
+| `app.R`             | Main app: sources tabs, assembles navbar layout 
+| `scripts/vis1.R`            | Dumbbell chart comparing starters vs. bench |
+| `scripts/vis1_animation.R`  | Animated Moneyball Shift (gganimate) |
+| `about.md`          | Dataset background, license, methodology |
+
 
 ## Group Contributions
 
 | Member | Contribution |
 |--------|-------------|
-| Martin Møllenhus | Visualization 1: dumbbell chart, Game Score animation |
-| [Member 2] | [Description] |
-| CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts |
-| [Member 4] | [Description] |
-| [Member 5] | [Description] |
+| [Member 1]          | Introduction  
+| Møllenhus, Martin   | Visualization 1: dumbbell chart, Game Score animation
+| [Member 3]          | Visualization 2:
+| CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts
+| [Member 5]          | [Description]
+
 
 ## License
 

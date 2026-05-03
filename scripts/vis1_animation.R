@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# VIS1_ANIMATION: The Moneyball Shift - gganimate Animation
+# VIS1_ANIMATION: The Game Score Shift - gganimate Animation
 # -----------------------------------------------------------------------------
 # Author: Martin Moll
 # Purpose: Animated visualization showing the key Moneyball insight.
@@ -200,10 +200,11 @@ if (!file.exists(gif_path)) {
       y        = "Hollinger Game Score (scaled 0-100)",
       colour   = NULL
     ) +
-    theme_minimal(base_size = 14) +
+    theme_minimal(base_size = 13) +
     theme(
       legend.position = "bottom",
-      plot.title = element_text(size = 13, face = "bold")
+      plot.title = element_text(size = 12, face = "bold"),
+      plot.margin = margin(t = 10, r = 10, b = 20, l = 10)
     ) +
     transition_states(metric,
                       transition_length = 3,
@@ -213,7 +214,7 @@ if (!file.exists(gif_path)) {
   # Render and save to disk
   anim_save(gif_path,
             animate(anim_plot, nframes = 120, fps = 15,
-                    width = 800, height = 550, res = 100,
+                    width = 1000, height = 620, res = 100,
                     renderer = gifski_renderer()))
 }
 
@@ -275,7 +276,13 @@ vis1_anim_ui <- function() {
           class = "bg-primary text-white"
         ),
         card_body(
-          imageOutput("vis1_anim_gif", height = "550px")
+          # CSS constrains the GIF to 75% of viewport height so title,
+          # axis labels, and legend are all visible on fullscreen displays
+          tags$div(
+            style = "text-align: center; overflow: hidden;",
+            imageOutput("vis1_anim_gif", height = "auto",
+                        inline = TRUE)
+          )
         )
       )
     )
@@ -288,16 +295,14 @@ vis1_anim_ui <- function() {
 # -----------------------------------------------------------------------------
 vis1_anim_server <- function(input, output, session) {
   
-  # Serve the pre-rendered GIF as an image.
-  # Depends on the replay button so clicking it forces a re-render
-  # of the output (which reloads the GIF from the start).
+  # Serve the pre-rendered GIF
   output$vis1_anim_gif <- renderImage({
     input$vis1_anim_replay
     
     list(
       src         = gif_path,
       contentType = "image/gif",
-      width       = "100%",
+      style       = "max-height: 100vh; max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto;",
       alt         = "HGS Shift Animation: per-game vs per-minute Hollinger Game Score"
     )
   }, deleteFile = FALSE)
