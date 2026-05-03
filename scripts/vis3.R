@@ -84,7 +84,7 @@ layout_sidebar(
     width = 400,
     
     # Context text 
-    p("See how each scoring method is favoured by players"),
+    p("See how each scoring method is favoured by players. Note that a score attempt will generally be in two groups (by points + by other characteristics) at the same time."),
     
     hr(),
     
