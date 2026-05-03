@@ -172,7 +172,7 @@ vis3_server <- function(input, output, session) {
         categoryorder = "array",
         categoryarray = unlist(proc_data["player_name"], use.names = FALSE)),
         #title = 'PLACEHOLDER TITLE', # not needed, we show with html
-        yaxis = list(title = paste("Mean", tolower(input$method))),
+        yaxis = list(title = paste("Mean", tolower(input$method), "per game")),
         legend = list(x = 0.85, y = 1.0)
       )
   })
