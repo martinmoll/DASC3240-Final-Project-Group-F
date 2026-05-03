@@ -126,6 +126,7 @@ layout_sidebar(
       tags$div(
         tags$ul(
           p("Although top players performs quite well regardless of the scoring methods, it is not without variations, especially between two pointers and three pointers."),
+          p("Starter players, surprisingly, makes more scoring attempts than bench players, though the low success rate makes them still score less than bench players."),
           p("The situations where a field goal can be performed is limited, (particularly, \"slam dunk\"s), but when performed it is likely to succeed.")
           
         )
