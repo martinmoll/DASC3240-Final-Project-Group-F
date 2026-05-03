@@ -164,14 +164,10 @@ vis1_ui <- function() {
         
         # Legend explanation (since the dumbbell doesn't use a standard legend)
         p(strong("How to read this chart:")),
-        p(
-          tags$span(style = "display:inline-block;width:14px;height:14px;background:#0072B2;border-radius:3px;margin-right:8px;vertical-align:middle;"),
-          "dots = Starters"
-        ),
-        p(
-          tags$span(style = "display:inline-block;width:14px;height:14px;background:#F0E442;border-radius:3px;margin-right:8px;vertical-align:middle;border:1px solid #ccc;"),
-          "dots = Bench players"
-        ),
+        p(tags$span("Blue", style = "color:#0072B2; font-weight:bold;"),
+          "dots = Starters"),
+        p(tags$span("Yellow", style = "color:#F0E442; font-weight:bold; -webkit-text-stroke: 0.3px #999;"),
+          "dots = Bench players"),
         p("When the dots are close together, bench players are",
           "producing at nearly the same rate as starters."),
         
