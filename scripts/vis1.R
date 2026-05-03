@@ -164,9 +164,9 @@ vis1_ui <- function() {
         
         # Legend explanation (since the dumbbell doesn't use a standard legend)
         p(strong("How to read this chart:")),
-        p(tags$span("Blue", style = "color:#4575b4; font-weight:bold;"),
+        p(tags$span("Blue", style = "color:#0072B2; font-weight:bold;"),
           "dots = Starters"),
-        p(tags$span("Gold", style = "color:#f0ad4e; font-weight:bold;"),
+        p(tags$span("Yellow", style = "color:#F0E442; font-weight:bold; -webkit-text-stroke: 0.3px #999;"),
           "dots = Bench players"),
         p("When the dots are close together, bench players are",
           "producing at nearly the same rate as starters."),
@@ -272,13 +272,13 @@ vis1_server <- function(input, output, session) {
         x = Bench, y = stat,
         text = paste0(stat, " - Bench",
                       "\n", mode_label, " avg: ", round(Bench, digits))
-      ), colour = "#f0ad4e", size = 6) +
+      ), colour = "#F0E442", size = 6) +
       # Blue dot: starter average
       geom_point(aes(
         x = Starter, y = stat,
         text = paste0(stat, " - Starter",
                       "\n", mode_label, " avg: ", round(Starter, digits))
-      ), colour = "#4575b4", size = 6) +
+      ), colour = "#0072B2", size = 6) +
       labs(
         x = paste(mode_label, "Average"),
         y = NULL

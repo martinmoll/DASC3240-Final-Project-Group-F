@@ -87,9 +87,9 @@ anim_data <- anim_data %>%
   )
 
 role_colors <- c(
-  "Starter"    = "#4575b4",
-  "Hidden Gem" = "#2ca02c",
-  "Bench"      = "#f0ad4e"
+  "Starter"    = "#0072B2",
+  "Hidden Gem" = "#009E73",
+  "Bench"      = "#F0E442"
 )
 
 
@@ -157,16 +157,16 @@ vis1_anim_ui <- function() {
         p("Both scores are scaled to 0-100 so you can see the",
           "relative positions shift."),
         
-        p("Watch the", tags$span("green dots", style = "color:#2ca02c; font-weight:bold;"),
+        p("Watch the", tags$span("teal dots", style = "color:#009E73; font-weight:bold;"),
           "(Hidden Gems) rise when the view shifts to per-minute."),
         
         hr(),
         
-        p(tags$span("Blue", style = "color:#4575b4; font-weight:bold;"),
+        p(tags$span("Blue", style = "color:#0072B2; font-weight:bold;"),
           "= Starters"),
-        p(tags$span("Green", style = "color:#2ca02c; font-weight:bold;"),
+        p(tags$span("Teal", style = "color:#009E73; font-weight:bold;"),
           "= Hidden Gems (bench, 8+ min, top 25% per-minute)"),
-        p(tags$span("Gold", style = "color:#f0ad4e; font-weight:bold;"),
+        p(tags$span("Yellow", style = "color:#F0E442; font-weight:bold; -webkit-text-stroke: 0.3px #999;"),
           "= Bench"),
         
         hr(),
