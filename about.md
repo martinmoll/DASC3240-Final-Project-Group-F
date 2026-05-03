@@ -69,13 +69,11 @@ The following preprocessing steps are applied:
 
 ### Methodology: Hollinger Game Score
 
-The Game Score was developed by John Hollinger to provide a single
+The Game Score was developed by [John Hollinger](https://www.nbastuffer.com/analytics101/game-score/) to provide a single
 number that captures a player's total box score contribution.
 The formula is:
 
-**GmSc = PTS + 0.4 x FGM - 0.7 x FGA - 0.4 x (FTA - FTM)
-+ 0.7 x ORB + 0.3 x DRB + STL + 0.7 x AST + 0.7 x BLK
-- 0.4 x PF - TOV**
+**Game score = Points Scored + (0.4 x Field Goals) - (0.7 x Field Goal Attempts)- (0.4 x (Free Throw Attempts - Free Throws)) + (0.7 x Offensive Rebounds) + (0.3 x Defensive Rebounds) + Steals + (0.7 x Assists) + (0.7 x Blocks) - (0.4 x Personal Fouls) - Turnovers**
 
 The scale is similar to points scored: approximately 10 represents
 an average game, 20 is very good, and 40+ is an elite single-game
@@ -109,8 +107,30 @@ elements provide clear advantages:
 ### Colour Scheme
 
 Consistent across all tabs:
-
-- **Blue (#4575b4):** Starters
-- **Green (#2ca02c):** Hidden Gems (bench players above the 75th
+- **Blue (#0072B2):** Starters
+- **Green (#009E73):** Hidden Gems (bench players above the 75th
   percentile in per-minute Game Score)
-- **Gold (#f0ad4e):** Bench players (below the threshold)
+- **Yellow (#F0E442):** Bench players (below the threshold)
+
+These colours are adapted from [Bang Wong's colorblind-safe palette](https://www.nature.com/articles/nmeth.1618) to improve accessibility for users with colour vision deficiencies. For additional details, see this [palette reference](https://davidmathlogic.com/colorblind/#%23000000-%23E69F00-%2356B4E9-%23009E73-%23F0E442-%230072B2-%23D55E00-%23CC79A7).
+
+--- 
+
+### Players photos
+
+**License:** All player photos are sourced from Wikimedia Commons and
+are distributed under open licenses:
+- Most images: **Creative Commons Attribution-ShareAlike 4.0** (CC BY-SA 4.0)
+  or similar CC versions (2.0, 3.0, 4.0)
+- Some images: **Creative Commons Public Domain** (CC0)
+- One image: **Public Domain** (via NASA)
+
+**Attribution:** Detailed license information, photographer credits, and
+source URLs for each player photo are provided in
+`player_photos_resized/labels.csv`. This file includes:
+- License type (CC BY-SA 4.0, CC BY 4.0, CC0, etc.)
+- License URL
+- Photographer/artist name
+- Original source page
+
+

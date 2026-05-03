@@ -148,11 +148,11 @@ anim_data <- anim_data %>%
   )
 
 # Colour palette: consistent across all tabs in the app
-# Blue = established starters, Green = undervalued gems, Gold = regular bench
+# Blue = established starters, Green = undervalued gems, Yellow = regular bench
 role_colors <- c(
-  "Starter"    = "#4575b4",
-  "Hidden Gem" = "#2ca02c",
-  "Bench"      = "#f0ad4e"
+  "Starter"    = "#0072B2",
+  "Hidden Gem" = "#009E73",
+  "Bench"      = "#F0E442"
 )
 
 
@@ -247,18 +247,25 @@ vis1_anim_ui <- function() {
         p("Both scores are scaled to 0-100 so you can see the",
           "relative positions shift."),
         
-        p("Watch the", tags$span("green dots", style = "color:#2ca02c; font-weight:bold;"),
+        p("Watch the",
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#009E73;border-radius:3px;margin:0 8px;vertical-align:middle;"),
           "(Hidden Gems) rise when the view shifts to per-minute."),
         
         hr(),
         
         # Colour legend
-        p(tags$span("Blue", style = "color:#4575b4; font-weight:bold;"),
-          "= Starters"),
-        p(tags$span("Green", style = "color:#2ca02c; font-weight:bold;"),
-          "= Hidden Gems (bench, 8+ min, top 25% per-minute)"),
-        p(tags$span("Gold", style = "color:#f0ad4e; font-weight:bold;"),
-          "= Bench"),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#0072B2;border-radius:3px;margin-right:8px;vertical-align:middle;"),
+          "= Starters"
+        ),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#009E73;border-radius:3px;margin-right:8px;vertical-align:middle;"),
+          "= Hidden Gems (bench, 8+ min, top 25% per-minute)"
+        ),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#F0E442;border-radius:3px;margin-right:8px;vertical-align:middle;border:1px solid #ccc;"),
+          "= Bench"
+        ),
         
         hr(),
         

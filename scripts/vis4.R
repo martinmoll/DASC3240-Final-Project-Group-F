@@ -123,9 +123,9 @@ vis4_animation_data <- bind_rows(
     image_path_resized = file.path("player_photos_resized", basename(image_path)),
     image_path_final   = if_else(file.exists(image_path_resized), image_path_resized, image_path),
     player_color = case_when(
-      starter == TRUE ~ "#4575b4",                        # Blue: Starters
-      starter == FALSE & per_min_game_score >= bench_threshold ~ "#2ca02c", # Green: Hidden Gems
-      TRUE            ~ "#f0ad4e"                         # Gold: other bench
+      starter == TRUE ~ "#0072B2",                        # Blue: Starters
+      starter == FALSE & per_min_game_score >= bench_threshold ~ "#009E73", # Green: Hidden Gems
+      TRUE            ~ "#F0E442"                         # Yellow: other bench
     )
   )
 
@@ -144,11 +144,8 @@ vis4_ui <- function() {
         width = 300,
 
         h4("Animation Parameters"),
-        # sliderInput("vis4_nframes", "Frames (nframes):",
-        #             min = 11, max = 66, value = 11, step = 11),
-        # vis4_fps <- 1, 
-        # sliderInput("vis4_fps", "Frame Rate (FPS):",
-        #             min = 1, max = 6, value = 1),
+        sliderInput("vis4_stage_seconds", "Time per stage (seconds):",
+              min = 0.4, max = 3.0, value = 1.0, step = 0.1),
         sliderInput("vis4_top_n", "Show Top N:",
                     min = 5, max = 15, value = 10),
         actionButton("vis4_render_btn", "▶ Generate Animation / Replay",
@@ -163,10 +160,14 @@ vis4_ui <- function() {
 
         hr(),
 
-        p(tags$span("Green", style = "color:#2ca02c; font-weight:bold;"),
-          "= Hidden Gems (bench, 8+ min, top 25% per-minute)"),
-        p(tags$span("Gold", style = "color:#f0ad4e; font-weight:bold;"),
-          "= Bench"),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#009E73;border-radius:3px;margin-right:8px;vertical-align:middle;"),
+          "Hidden Gems (bench, 8+ min, top 25% per-minute)"
+        ),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#F0E442;border-radius:3px;margin-right:8px;vertical-align:middle;border:1px solid #ccc;"),
+          "Bench"
+        ),
 
         hr(), 
         p(strong("How to read this leaderboard:")),
@@ -182,14 +183,7 @@ vis4_ui <- function() {
       card(
         card_header("WNBA Hidden Gems: Hollinger Game Score"),
         card_body(
-        #   p("The ", strong("Hollinger Game Score"), " is a single-game impact metric. Formula:"),
-        #   withMathJax(
-        #     helpText("$$\\text{Game Score} = \\text{PTS} + 0.4\\cdot\\text{FG}
-        #               - 0.7\\cdot\\text{FGA} - 0.4\\cdot(\\text{FTA}-\\text{FT})
-        #               + 0.7\\cdot\\text{ORB} + 0.3\\cdot\\text{DRB}
-        #               + \\text{STL} + 0.7\\cdot\\text{AST} + 0.7\\cdot\\text{BLK}
-        #               - 0.4\\cdot\\text{PF} - \\text{TOV}$$")
-        #   ),
+
           
           # Stage display
           div(
@@ -225,7 +219,6 @@ vis4_server <- function(input, output, session) {
   vis4_anim_data <- reactiveVal(NULL)
   vis4_current_stage_idx <- reactiveVal(1)
   vis4_is_playing <- reactiveVal(FALSE)
-  vis4_animation_speed <- reactiveVal(1)  # Can be adjusted based on fps
 
   # Generate animation data when "Generate Animation" is clicked
   observeEvent(input$vis4_render_btn, {
@@ -261,7 +254,6 @@ vis4_server <- function(input, output, session) {
       vis4_anim_data(anim_df)
       vis4_current_stage_idx(1)
       vis4_is_playing(FALSE)
-      vis4_animation_speed(1)
 
       incProgress(0.5, detail = "Ready!")
     })
@@ -276,7 +268,11 @@ vis4_server <- function(input, output, session) {
       
       if (current_idx < num_stages) {
         vis4_current_stage_idx(current_idx + 1)
-        invalidateLater(1000 / isolate(vis4_animation_speed()))
+        stage_seconds <- isolate(input$vis4_stage_seconds)
+        if (is.null(stage_seconds) || is.na(stage_seconds) || stage_seconds <= 0) {
+          stage_seconds <- 1
+        }
+        invalidateLater(as.integer(stage_seconds * 1000), session)
       } else {
         vis4_is_playing(FALSE)  # Stop when reaching end
       }

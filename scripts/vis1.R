@@ -166,10 +166,14 @@ vis1_ui <- function() {
         
         # Legend explanation (since the dumbbell doesn't use a standard legend)
         p(strong("How to read this chart:")),
-        p(tags$span("Blue", style = "color:#4575b4; font-weight:bold;"),
-          "dots = Starters"),
-        p(tags$span("Gold", style = "color:#f0ad4e; font-weight:bold;"),
-          "dots = Bench players"),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#0072B2;border-radius:3px;margin-right:8px;vertical-align:middle;"),
+          "dots = Starters"
+        ),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#F0E442;border-radius:3px;margin-right:8px;vertical-align:middle;border:1px solid #ccc;"),
+          "dots = Bench players"
+        ),
         p("When the dots are close together, bench players are",
           "producing at nearly the same rate as starters."),
         
@@ -249,7 +253,7 @@ vis1_server <- function(input, output, session) {
   # Dumbbell chart: the main visualization
   # Built with three ggplot layers:
   #   1. geom_segment (grey bar connecting bench and starter)
-  #   2. geom_point for bench (gold)
+  #   2. geom_point for bench (Yellow)
   #   3. geom_point for starter (blue)
   # Converted to plotly for hover interactivity.
   output$vis1_dumbbell <- renderPlotly({
@@ -270,18 +274,18 @@ vis1_server <- function(input, output, session) {
                       "\nDifference: ", round(diff, digits),
                       "\nStarter advantage: ", pct_diff, "%")
       ), colour = "#cccccc", linewidth = 2.5) +
-      # Gold dot: bench player average
+      # Yellow dot: bench player average
       geom_point(aes(
         x = Bench, y = stat,
         text = paste0(stat, " - Bench",
                       "\n", mode_label, " avg: ", round(Bench, digits))
-      ), colour = "#f0ad4e", size = 6) +
+      ), colour = "#F0E442", size = 6) +
       # Blue dot: starter average
       geom_point(aes(
         x = Starter, y = stat,
         text = paste0(stat, " - Starter",
                       "\n", mode_label, " avg: ", round(Starter, digits))
-      ), colour = "#4575b4", size = 6) +
+      ), colour = "#0072B2", size = 6) +
       labs(
         x = paste(mode_label, "Average"),
         y = NULL

@@ -65,7 +65,7 @@ per-minute Game Score reaches the 75th percentile are classified as
 | Martin Møllenhus | Visualization 1: dumbbell chart, Game Score animation |
 | [Member 2] | [Description] |
 | CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts |
-| [Member 4] | [Description] |
+| YIP, Chi Ho | Visualization 4: players leaderboard, Game score research, players photos dataset |
 | [Member 5] | [Description] |
 
 ## License
