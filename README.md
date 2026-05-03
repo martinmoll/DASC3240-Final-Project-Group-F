@@ -1,20 +1,26 @@
-# WNBA 2019 Moneyball Analysis
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
 
-A Shiny application exploring the 2019 WNBA season through Moneyball
-analytics: using data to identify undervalued bench players whose
-per-minute production rivals that of starters.
+# WNBA 2019 - Finding Hidden Gems
+
+A Shiny application exploring the 2019 WNBA season through analytics:
+using data to identify undervalued bench players whose
+per-minute production rivals that of starters - what we call "Hidden Gems".
 
 ## How to Run
 
 ### Option 1: From GitHub (no cloning needed)
 
-```r
+``` r
 shiny::runGitHub("test1-dasc3240-finalproject", "martinmoll")
 ```
-Paste in Rstudio's console.
-### Option 2: Clone and run locally
 
-```bash
+Paste in Rstudio's console. \### Option 2: Clone and run locally
+
+``` bash
 git clone https://github.com/martinmoll/test1-dasc3240-finalproject.git
 ```
 
@@ -22,7 +28,7 @@ Open the `.Rproj` file in RStudio and click "Run App".
 
 ## Required Packages
 
-```r
+``` r
 install.packages(c(
   "shiny", "bslib", "tidyverse", "plotly",
   "bayesrules", "markdown", "gganimate", "gifski"
@@ -31,13 +37,14 @@ install.packages(c(
 
 ## Dataset
 
-- **Source:** `bayesrules::basketball` (CRAN package), originally from
-  [basketball-reference.com](https://www.basketball-reference.com/wnba/players/)
-- **License:** `bayesrules` package is GPL (>= 3)
-- **Coverage:** 146 WNBA players, 2019 season, 30 variables
-- **Key variables:** per-game averages for points, rebounds, assists,
-  steals, blocks, turnovers, field goal/3-point/free throw percentages,
-  plus player demographics (age, height, weight) and team info
+-   **Source:** `bayesrules::basketball` (CRAN package), originally from
+    [basketball-reference.com](https://www.basketball-reference.com/wnba/players/)
+-   **License:** `bayesrules` package is GPL (\>= 3)
+-   **Coverage:** 146 WNBA players, 2019 season, 30 variables
+-   **Key variables:** per-game averages for points, rebounds, assists,
+    steals, blocks, turnovers, field goal/3-point/free throw
+    percentages, plus player demographics (age, height, weight) and team
+    info
 
 ## Methodology
 
@@ -49,26 +56,23 @@ per-minute Game Score reaches the 75th percentile are classified as
 
 ## App Structure
 
-| File | Description |
-|------|-------------|
-| `app.R`             | Main app: sources tabs, assembles navbar layout 
-| `app.R`             | Main app: sources tabs, assembles navbar layout 
-| `scripts/vis1.R`            | Dumbbell chart comparing starters vs. bench |
-| `scripts/vis1_animation.R`  | Animated Moneyball Shift (gganimate) |
-| `about.md`          | Dataset background, license, methodology |
+| File | Description                                                    
+|-----------------------------------------------------------------------------|
+| `app.R`       | Main app: sources tabs, assembles navbar layout             |
+| `scripts/...` | R scripts for our visualizations                            | 
+| `about.md`    | Dataset background, license, methodology                    |
 
 
 ## Group Contributions
 
-| Member | Contribution |
-|--------|-------------|
-| [Member 1]          | Introduction  
-| Møllenhus, Martin   | Visualization 1: dumbbell chart, Game Score animation
-| [Member 3]          | Visualization 2:
-| CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts
-| [Member 5]          | [Description]
-
+| Member              | Contribution                                          |
+|---------------------|-------------------------------------------------------|
+| [Member 1]          | Introduction                                          |
+| Møllenhus, Martin   | Visualization 1: Dumbbell chart, Game Score animation |
+| Liao, Win           | Visualization 2:                                      |
+| CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts            |
+| Yip, Chi Ho         | [Description]                                         |
 
 ## License
 
-GPL (>= 3)
+GPL (\>= 3)
