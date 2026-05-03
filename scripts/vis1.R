@@ -126,7 +126,7 @@ vis1_pergame <- vis1_data %>%
 
 
 # -----------------------------------------------------------------------------
-# UI COMPONENT
+# UI 
 # -----------------------------------------------------------------------------
 # The dumbbell chart is the first of the tabs in the app with the visualizations
 # It's intentionally simple and visual to ease the audience in before
@@ -164,9 +164,11 @@ vis1_ui <- function() {
         
         # Legend explanation (since the dumbbell doesn't use a standard legend)
         p(strong("How to read this chart:")),
-        p(tags$span("Blue", style = "color:#0072B2; font-weight:bold;"),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#0072B2;border-radius:3px;margin-right:8px;vertical-align:middle;"),
           "dots = Starters"),
-        p(tags$span("Yellow", style = "color:#F0E442; font-weight:bold; -webkit-text-stroke: 0.3px #999;"),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#F0E442;border-radius:3px;margin-right:8px;vertical-align:middle;border:1px solid #ccc;"),
           "dots = Bench players"),
         p("When the dots are close together, bench players are",
           "producing at nearly the same rate as starters."),
@@ -200,7 +202,7 @@ vis1_ui <- function() {
 
 
 # -----------------------------------------------------------------------------
-# SERVER COMPONENT
+# SERVER 
 # -----------------------------------------------------------------------------
 vis1_server <- function(input, output, session) {
   
@@ -246,7 +248,7 @@ vis1_server <- function(input, output, session) {
   # Dumbbell chart: the main visualization
   # Built with three ggplot layers:
   #   1. geom_segment (grey bar connecting bench and starter)
-  #   2. geom_point for bench (Yellow)
+  #   2. geom_point for bench (gold)
   #   3. geom_point for starter (blue)
   # Converted to plotly for hover interactivity.
   output$vis1_dumbbell <- renderPlotly({
@@ -267,7 +269,7 @@ vis1_server <- function(input, output, session) {
                       "\nDifference: ", round(diff, digits),
                       "\nStarter advantage: ", pct_diff, "%")
       ), colour = "#cccccc", linewidth = 2.5) +
-      # Yellow dot: bench player average
+      # Gold dot: bench player average
       geom_point(aes(
         x = Bench, y = stat,
         text = paste0(stat, " - Bench",

@@ -129,9 +129,9 @@ plotly_data <- bind_rows(
   )
 
 
-# =============================================================================
+# ----------------------------------------------------------------------------
 # UI
-# =============================================================================
+# ----------------------------------------------------------------------------
 vis1_anim_ui <- function() {
   nav_panel(
     title = "HGS Shift",
@@ -162,12 +162,15 @@ vis1_anim_ui <- function() {
         
         hr(),
         
-        p(tags$span("Blue", style = "color:#0072B2; font-weight:bold;"),
-          "= Starters"),
-        p(tags$span("Teal", style = "color:#009E73; font-weight:bold;"),
-          "= Hidden Gems (bench, 8+ min, top 25% per-minute)"),
-        p(tags$span("Yellow", style = "color:#F0E442; font-weight:bold; -webkit-text-stroke: 0.3px #999;"),
-          "= Bench"),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#0072B2;border-radius:3px;margin-right:8px;vertical-align:middle;"),
+          "Starters"),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#009E73;border-radius:3px;margin-right:8px;vertical-align:middle;"),
+          "Hidden Gems (bench, 8+ min, top 25% per-minute)"),
+        p(
+          tags$span(style = "display:inline-block;width:14px;height:14px;background:#F0E442;border-radius:3px;margin-right:8px;vertical-align:middle;border:1px solid #ccc;"),
+          "Bench"),
         
         hr(),
         
@@ -189,9 +192,9 @@ vis1_anim_ui <- function() {
 }
 
 
-# =============================================================================
+# ----------------------------------------------------------------------------
 # SERVER
-# =============================================================================
+# ----------------------------------------------------------------------------
 vis1_anim_server <- function(input, output, session) {
   
   output$vis1_anim_plot <- renderPlotly({

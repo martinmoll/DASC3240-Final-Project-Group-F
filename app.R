@@ -12,7 +12,7 @@
 #   4. Add the _server() call inside the server function
 #
 # To run: click "Run App" in RStudio, or use
-#   shiny::runGitHub("test1-dasc3240-finalproject", "martinmoll")
+#   shiny::runGitHub("DASC3240-Final-Project-Group-F", "martinmoll")
 # -----------------------------------------------------------------------------
 
 
