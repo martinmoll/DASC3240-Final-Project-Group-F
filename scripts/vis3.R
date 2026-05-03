@@ -1,3 +1,13 @@
+# -----------------------------------------------------------------------------
+# VISUALIZATION 3: TOP PLAYERS FOR EACH SCORING METHOD
+# -----------------------------------------------------------------------------
+#
+# This visualization shows the top players by each categorization of scoring
+# method. The scoring methods can be divided into two groups and a scoring
+# attempt generally belong to one of the members of both groups.
+#
+# Membership within a group is, however, mutually exclusive
+
 library(shiny)
 library(plotly)
 library(tidyverse)
@@ -20,8 +30,10 @@ vis3_data <- vis3_data[vis3_data$team != "TOT", ]
 vis3_data <- vis3_data[!duplicated(vis3_data$player_name, fromLast = TRUE), ]
 
 vis3_method_dict = list(
+  # GROUP 1
   "Two pointers" = "avg_two_pointers", 
   "Three pointers" = "avg_three_pointers",
+  # GROUP 2
   "Free throws" = "avg_free_throws",
   "Field Goal" = "avg_field_goals"
   )
