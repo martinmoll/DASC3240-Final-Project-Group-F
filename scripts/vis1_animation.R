@@ -140,7 +140,7 @@ vis1_anim_ui <- function() {
     layout_sidebar(
       sidebar = sidebar(
         title = "HGS Shift",
-        width = 300,
+        width = 400,
         
         p("This animated chart morphs between two ways of measuring",
           "player value using Hollinger's Game Score (HGS):"),

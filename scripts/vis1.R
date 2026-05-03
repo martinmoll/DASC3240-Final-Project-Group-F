@@ -140,7 +140,7 @@ vis1_ui <- function() {
     layout_sidebar(
       sidebar = sidebar(
         title = "The Case for Hidden Value",
-        width = 300,
+        width = 400,
         
         # Context text
         p("How do starters and bench players really compare?",
