@@ -1,8 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
 # WNBA 2019 - Finding Hidden Gems
 
@@ -15,13 +10,13 @@ per-minute production rivals that of starters - what we call "Hidden Gems".
 ### Option 1: From GitHub (no cloning needed)
 
 ``` r
-shiny::runGitHub("test1-dasc3240-finalproject", "martinmoll")
+shiny::runGitHub("DASC3240-Final-Project-Group-F", "martinmoll")
 ```
 
 Paste in Rstudio's console. \### Option 2: Clone and run locally
 
 ``` bash
-git clone https://github.com/martinmoll/test1-dasc3240-finalproject.git
+git clone https://github.com/martinmoll/DASC3240-Final-Project-Group-F.git
 ```
 
 Open the `.Rproj` file in RStudio and click "Run App".
