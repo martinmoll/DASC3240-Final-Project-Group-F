@@ -18,6 +18,7 @@
 
 # Source visualization modules ------------------------------------------------
 # Each file defines a _ui() and _server() function pair
+source("scripts/vis_intro.R")
 source("scripts/vis1.R")              # Dumbbell chart: Starters vs. Bench
 source("scripts/vis1_animation.R")    # Moneyball Shift animation
 source("scripts/Vis_2.R")             # Visualization 2. More info needed(?)
@@ -36,16 +37,17 @@ ui <- page_navbar(
   title = "WNBA 2019 - Finding Hidden Gems",
   theme = bs_theme(bootswatch = "flatly"),
   
-  # --- Visualization tabs (one per group member) ---
-  vis1_ui(),                # Tab 1: Dumbbell chart
-  vis1_anim_ui(),           # Tab 2: Moneyball Shift animation
+  # --- Visualization tabs ---
+  vis_intro_ui(),
+  vis1_ui(),               
+  vis1_anim_ui(),           
   vis2_ui(),
   vis3_ui(),
   # source("vis_OTHER.R")   # Tab 3: Add other members' tabs here
   
+  
   # --- About tab: dataset background, license, methodology ---
-  # Uses includeMarkdown() to keep narrative text out of app.R
-  # (technique from Lecture 20)
+  
   nav_panel("About", icon = icon("info-circle"),
             includeMarkdown("about.md"))
 )
@@ -55,6 +57,7 @@ ui <- page_navbar(
 # Server: Wire up all tab server functions
 # -----------------------------------------------------------------------------
 server <- function(input, output, session) {
+  vis_intro_server(input, output, session)
   vis1_server(input, output, session)
   vis1_anim_server(input, output, session)
   vis2_server(input, output, session)
