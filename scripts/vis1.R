@@ -246,7 +246,7 @@ vis1_server <- function(input, output, session) {
   # Dumbbell chart: the main visualization
   # Built with three ggplot layers:
   #   1. geom_segment (grey bar connecting bench and starter)
-  #   2. geom_point for bench (gold)
+  #   2. geom_point for bench (Yellow)
   #   3. geom_point for starter (blue)
   # Converted to plotly for hover interactivity.
   output$vis1_dumbbell <- renderPlotly({
@@ -267,7 +267,7 @@ vis1_server <- function(input, output, session) {
                       "\nDifference: ", round(diff, digits),
                       "\nStarter advantage: ", pct_diff, "%")
       ), colour = "#cccccc", linewidth = 2.5) +
-      # Gold dot: bench player average
+      # Yellow dot: bench player average
       geom_point(aes(
         x = Bench, y = stat,
         text = paste0(stat, " - Bench",

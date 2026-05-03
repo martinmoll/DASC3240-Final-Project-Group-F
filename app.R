@@ -23,7 +23,7 @@ source("scripts/vis1.R")              # Dumbbell chart: Starters vs. Bench
 source("scripts/vis1_animation.R")    # Moneyball Shift animation
 source("scripts/Vis_2.R")             # Visualization 2. More info needed(?)
 source("scripts/vis3.R")              # Visualization 3. Scoring methods
-
+source("scripts/vis4.R")              # Visualization 4. Leaderboard animation 
 
 # Additional packages needed by app.R itself
 library(bslib)
@@ -43,6 +43,7 @@ ui <- page_navbar(
   vis1_anim_ui(),           
   vis2_ui(),
   vis3_ui(),
+  vis4_ui(),
   # source("vis_OTHER.R")   # Tab 3: Add other members' tabs here
   
   
@@ -62,6 +63,7 @@ server <- function(input, output, session) {
   vis1_anim_server(input, output, session)
   vis2_server(input, output, session)
   vis3_server(input, output, session)
+  vis4_server(input, output, session)
   # vis_OTHER_server(input, output, session)  # Add other members here
 }
 
