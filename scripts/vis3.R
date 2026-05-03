@@ -90,12 +90,13 @@ layout_sidebar(
     
     # Filters
     uiOutput("selectInput"),
-    sliderInput(
-      inputId = "slice",
-      label = "Range of players to show",
-      min = 1,
-      max = length(vis3_data$player_name),
-      value = c(1, 30)),
+    radioButtons(
+      inputId   = "player_type",
+      label     = "Player Type:",
+      choices   = c("Bench" = "bench", "Starter" = "starter", "All" = "all"),
+      selected  = "bench"
+    ),
+    uiOutput("sliderInput"),
     
     hr(),
     
@@ -137,6 +138,16 @@ layout_sidebar(
 
 # Server
 vis3_server <- function(input, output, session) {
+  eligible_data <- reactive({
+    if (input$player_type == "bench") {
+      eligible_data <- vis3_data %>% filter(starter == FALSE)   # bench players
+    } else if (input$player_type == "starter") {
+      eligible_data <- vis3_data %>% filter(starter == TRUE)    # starters
+    } else {
+      vis3_data
+    }
+  })
+
   output$barPlot <- renderPlotly({
     # This plot is a stacked bar chart technically implemented as
     # grouped bar chart with one bar guaranteed to be no longer
@@ -150,7 +161,7 @@ vis3_server <- function(input, output, session) {
       return() # nope, no graph yet
     }
 
-    proc_data = vis3_data %>%
+    proc_data = eligible_data() %>%
       arrange(
         desc(!!sym(vis3_method_dict[[input$method]])),
         desc(!!sym(vis3_attempts(vis3_method_dict[[input$method]])))) %>%
@@ -197,8 +208,23 @@ vis3_server <- function(input, output, session) {
     )
   })
 
+  output$sliderInput <- renderUI({
+    sliderInput(
+      inputId = "slice",
+      label = "Range of players to show",
+      min = 1,
+      max = nrow(eligible_data()),
+      value = c(1, min(nrow(eligible_data()), 30)))
+  })
+
   output$plotTitle <- renderUI({
     # this one can work with empty hopefully
-    paste0("Top players at ", tolower(input$method))
+    if (input$player_type == "bench") {
+      paste0("Top bench players at ", tolower(input$method))
+    } else if (input$player_type == "starter") {
+      paste0("Top starter players at ", tolower(input$method))
+    } else {
+      paste0("Top players at ", tolower(input$method))
+    }
   })
 }
