@@ -66,7 +66,7 @@ per-minute Game Score reaches the 75th percentile are classified as
 |---------------------|-------------------------------------------------------|
 | Lau, Shing Chung    | Introduction file                                     |
 | Møllenhus, Martin   | Visualization 1: Dumbbell chart, Game Score animation |
-| Liao, Win           | Visualization 2:                                      |
+| Liao, Win           | Visualization 2: Individual Performance, Conclusion   |
 | CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts            |
 | Yip, Chi Ho         | [Description]                                         |
 
