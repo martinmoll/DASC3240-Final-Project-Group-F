@@ -1,9 +1,6 @@
-
 # WNBA 2019 - Finding Hidden Gems
 
-A Shiny application exploring the 2019 WNBA season through analytics:
-using data to identify undervalued bench players whose
-per-minute production rivals that of starters - what we call "Hidden Gems".
+A Shiny application exploring the 2019 WNBA season through analytics: using data to identify undervalued bench players whose per-minute production rivals that of starters - what we call "Hidden Gems".
 
 ## How to Run
 
@@ -13,7 +10,7 @@ per-minute production rivals that of starters - what we call "Hidden Gems".
 shiny::runGitHub("DASC3240-Final-Project-Group-F", "martinmoll")
 ```
 
-Paste in Rstudio's console. 
+Paste in Rstudio's console.
 
 ### Option 2: Clone and run locally
 
@@ -34,32 +31,23 @@ install.packages(c(
 
 ## Dataset
 
--   **Source:** `bayesrules::basketball` (CRAN package), originally from
-    [basketball-reference.com](https://www.basketball-reference.com/wnba/players/)
+-   **Source:** `bayesrules::basketball` (CRAN package), originally from [basketball-reference.com](https://www.basketball-reference.com/wnba/players/)
 -   **License:** `bayesrules` package is GPL (\>= 3)
 -   **Coverage:** 146 WNBA players, 2019 season, 30 variables
--   **Key variables:** per-game averages for points, rebounds, assists,
-    steals, blocks, turnovers, field goal/3-point/free throw
-    percentages, plus player demographics (age, height, weight) and team
-    info
+-   **Key variables:** per-game averages for points, rebounds, assists, steals, blocks, turnovers, field goal/3-point/free throw percentages, plus player demographics (age, height, weight) and team info
 
 ## Methodology
 
-Player value is measured using **Hollinger's Game Score**, a published
-composite metric used by NBA/WNBA analysts. We compute both per-game
-(raw) and per-minute (time-adjusted) versions. Bench players whose
-per-minute Game Score reaches the 75th percentile are classified as
-"Hidden Gems."
+Player value is measured using **Hollinger's Game Score**, a published composite metric used by NBA/WNBA analysts. We compute both per-game (raw) and per-minute (time-adjusted) versions. Bench players whose per-minute Game Score reaches the 75th percentile are classified as "Hidden Gems."
 
 ## App Structure
 
-| File                        | Description                                                    
-|-----------------------------------------------------------------------------|
-| `app.R`                     | Main app: sources tabs, navbar layout         |
-| `scripts/...`               | R scripts for our visualizations              | 
-| `about.md`                  | Dataset background, license, methodology      |
-| `player_photos_resized/..`  | Dataset background, license, methodology      |
-
+| File                       |
+|----------------------------|
+| `app.R`                    |
+| `scripts/...`              |
+| `about.md`                 |
+| `player_photos_resized/..` |
 
 ## Group Contributions
 
