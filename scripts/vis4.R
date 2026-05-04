@@ -141,7 +141,7 @@ vis4_ui <- function() {
     layout_sidebar(
       sidebar = sidebar(
         title = "Players Leaderboard animation",
-        width = 300,
+        width = 400,
 
         h4("Animation Parameters"),
         sliderInput("vis4_stage_seconds", "Time per stage (seconds):",

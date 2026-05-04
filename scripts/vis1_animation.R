@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# VIS1_ANIMATION: The Game Score Shift
+# VIS1_ANIMATION: The Hollinger Game Score Shift
 # -----------------------------------------------------------------------------
 # Purpose:
 # Interactive animated scatter plot showing the Moneyball insight.
@@ -135,7 +135,7 @@ plotly_data <- bind_rows(
 # ----------------------------------------------------------------------------
 vis1_anim_ui <- function() {
   nav_panel(
-    title = "HGS Shift",
+    title = "Game vs Per-Min Shift",
     icon  = icon("play"),
     
     layout_sidebar(

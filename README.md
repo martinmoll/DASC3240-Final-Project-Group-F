@@ -42,17 +42,17 @@ Player value is measured using **Hollinger's Game Score**, a published composite
 
 ## App Structure
 
-| Files                       | Description                                   |                
-|-----------------------------|-----------------------------------------------|
-| `app.R`                     | Main app: sources tabs, navbar layout         |
-| `scripts/...`               | R scripts for our visualizations              | 
-| `about.md`                  | Dataset background, license, methodology      |
-| `player_photos_resized/..`  | WNBA player pictures                          |
+| Files                      | Description                              |
+|----------------------------|------------------------------------------|
+| `app.R`                    | Main app: sources tabs, navbar layout    |
+| `scripts/...`              | R scripts for our visualizations         |
+| `about.md`                 | Dataset background, license, methodology |
+| `player_photos_resized/..` | WNBA player pictures                     |
 
 ## Group Contributions
 
 | Member              | Contribution (files. Not representative of tab order) |
-|---------------------|-------------------------------------------------------|
+|--------------------|---------------------------------------------------|
 | Lau, Shing Chung    | Introduction file                                     |
 | Møllenhus, Martin   | Visualization 1: Dumbbell chart, HGS animation,       |
 | Liao, Win           | Visualization 2: Individual Performance, Conclusion   |
