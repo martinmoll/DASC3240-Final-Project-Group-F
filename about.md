@@ -20,10 +20,10 @@ league's next breakout stars?
 (v0.0.3+), originally scraped from
 [basketball-reference.com](https://www.basketball-reference.com/wnba/players/).
 
-**License:** The `bayesrules` package is distributed under the
-GPL (>= 3) license on CRAN. The underlying data is sourced from
+**License:** The `bayesrules` package is distributed under GNU General Public Licence 
+version 3.0 (GPL >= 3) on CRAN. The underlying data is sourced from
 basketball-reference.com, which provides sports statistics for
-personal, non-commercial use by using sportradar.com data.
+personal, non-commercial use by using official sportradar.com data.
 
 **Coverage:** All 146 rostered WNBA players from the 2019 season.
 
