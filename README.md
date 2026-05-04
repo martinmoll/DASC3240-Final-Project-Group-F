@@ -42,12 +42,12 @@ Player value is measured using **Hollinger's Game Score**, a published composite
 
 ## App Structure
 
-| File                       |
-|----------------------------|
-| `app.R`                    |
-| `scripts/...`              |
-| `about.md`                 |
-| `player_photos_resized/..` |
+| Files                       | Description                                   |                
+|-----------------------------|-----------------------------------------------|
+| `app.R`                     | Main app: sources tabs, navbar layout         |
+| `scripts/...`               | R scripts for our visualizations              | 
+| `about.md`                  | Dataset background, license, methodology      |
+| `player_photos_resized/..`  | WNBA player pictures                          |
 
 ## Group Contributions
 
