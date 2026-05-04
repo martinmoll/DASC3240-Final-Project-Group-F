@@ -15,7 +15,7 @@
 source("scripts/vis_intro.R")
 source("scripts/vis1.R")              # Dumbbell chart: Starters vs. Bench
 source("scripts/vis1_animation.R")    # Moneyball Shift animation
-source("scripts/Vis_2.R")             # Visualization 2. More info needed(?)
+source("scripts/Vis_2.R")             # Visualization 2. Threshold visualization
 source("scripts/vis3.R")              # Visualization 3. Scoring methods
 source("scripts/vis4.R")              # Visualization 4. Leaderboard animation 
 
