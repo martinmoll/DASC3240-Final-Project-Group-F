@@ -1,15 +1,11 @@
 # -----------------------------------------------------------------------------
 # VIS1: Interactive Dumbbell Chart - Starters vs. Bench Comparison
 # -----------------------------------------------------------------------------
-# Purpose: Opening visualization for the Moneyball narrative. Shows that
-#          bench players produce at similar per-minute rates to starters,
-#          establishing the premise that the gap is about opportunity
-#          (playing time), not ability (production rate).
-#
-# Integration:
-#   1. source("vis1.R") in app.R
-#   2. Add vis1_ui() inside page_navbar()
-#   3. Call vis1_server(input, output, session) inside the server function
+# Purpose: 
+# Opening visualization for the "amongst bench players there are hidden gems" narrative.
+# Shows that bench players produce at similar per-minute rates to starters,
+# establishing the premise that the gap is about opportunity
+# (playing time), not ability (production rate).
 #
 # Interactivity justification:
 # A static dumbbell could only show one view. The per-minute vs per-game
@@ -29,12 +25,12 @@ library(bayesrules)
 # Data preparation ------------------------------------------------------------
 # Runs once when the app loads (not reactively), for performance.
 # Uses bayesrules::basketball so no external files are needed and
-# runGitHub() works without downloading data.
+# runGitHub() works without downloading data beforehand.
 
 data(basketball, package = "bayesrules")
 
 vis1_data <- basketball %>%
-  # Remove rows with missing player names (2 NaN rows in the dataset)
+  # Remove rows with missing player names 
   filter(!is.na(player_name)) %>%
   # Remove "TOT" (total) rows for players who switched teams mid-season.
   # These players have a TOT row aggregating all teams plus individual
@@ -47,7 +43,6 @@ vis1_data <- basketball %>%
   slice_tail(n = 1) %>%
   ungroup() %>%
   mutate(
-    # The starter column is numeric (1/0), not logical or character.
     role = ifelse(starter == 1, "Starter", "Bench"),
     role = factor(role, levels = c("Starter", "Bench"))
   ) %>%
@@ -94,11 +89,11 @@ vis1_permin <- vis1_data %>%
   mutate(
     diff = Starter - Bench,
     pct_diff = round((Starter - Bench) / Bench * 100, 1),
-    # Factor levels control the top-to-bottom display order
     stat = factor(stat, levels = rev(c("Points", "Rebounds", "Assists",
                                        "Steals", "Blocks", "FG Pct",
                                        "Turnovers")))
   )
+
 
 # Per-game view: shows production VOLUME (total per game).
 # This naturally favours starters who play more minutes.
@@ -128,7 +123,7 @@ vis1_pergame <- vis1_data %>%
 # -----------------------------------------------------------------------------
 # UI 
 # -----------------------------------------------------------------------------
-# The dumbbell chart is the first of the tabs in the app with the visualizations
+# The dumbbell chart is the first of the visualization tabs in the app.
 # It's intentionally simple and visual to ease the audience in before
 # the more complex Game Score analysis.
 
@@ -151,7 +146,7 @@ vis1_ui <- function() {
         
         # Toggle: the core interactive element for this visualization.
         # Switching between views is the "discovery moment" where the
-        # user sees insight for themselves.
+        # user gets to see some of the insight for themselves.
         radioButtons(
           inputId  = "vis1_mode",
           label    = "View Mode:",
@@ -162,7 +157,7 @@ vis1_ui <- function() {
         
         hr(),
         
-        # Legend explanation (since the dumbbell doesn't use a standard legend)
+        # Legend explanation
         p(strong("How to read this chart:")),
         p(
           tags$span(style = "display:inline-block;width:14px;height:14px;background:#0072B2;border-radius:3px;margin-right:8px;vertical-align:middle;"),
@@ -248,15 +243,14 @@ vis1_server <- function(input, output, session) {
   # Dumbbell chart: the main visualization
   # Built with three ggplot layers:
   #   1. geom_segment (grey bar connecting bench and starter)
-  #   2. geom_point for bench (gold)
+  #   2. geom_point for bench (yellow)
   #   3. geom_point for starter (blue)
   # Converted to plotly for hover interactivity.
   output$vis1_dumbbell <- renderPlotly({
     df <- dumbbell_data()
     mode_label <- ifelse(input$vis1_mode == "permin", "Per-Minute", "Per-Game")
-    # Per-minute values are small decimals (0.35), per-game are larger (8.7)
-    # so we adjust rounding accordingly
-    digits <- ifelse(input$vis1_mode == "permin", 4, 2)
+    
+    digits <- ifelse(input$vis1_mode == "permin", 4, 2) # rounding values
     
     p <- ggplot(df) +
       # Grey connecting segment: shows the gap between groups
@@ -269,7 +263,7 @@ vis1_server <- function(input, output, session) {
                       "\nDifference: ", round(diff, digits),
                       "\nStarter advantage: ", pct_diff, "%")
       ), colour = "#cccccc", linewidth = 2.5) +
-      # Gold dot: bench player average
+      # Yellow dot: bench player average
       geom_point(aes(
         x = Bench, y = stat,
         text = paste0(stat, " - Bench",
@@ -287,8 +281,7 @@ vis1_server <- function(input, output, session) {
       ) +
       theme_minimal(base_size = 14) +
       theme(
-        # Remove horizontal grid lines since the dumbbell segments
-        # already provide the visual structure
+        # Remove horizontal grid lines 
         panel.grid.major.y = element_blank(),
         legend.position = "none"
       )

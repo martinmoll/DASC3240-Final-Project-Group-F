@@ -62,10 +62,10 @@ per-minute Game Score reaches the 75th percentile are classified as
 
 ## Group Contributions
 
-| Member              | Contribution                                          |
+| Member              | Contribution (files. Not representative of tab order) |
 |---------------------|-------------------------------------------------------|
 | Lau, Shing Chung    | Introduction file                                     |
-| Møllenhus, Martin   | Visualization 1: Dumbbell chart, Game Score animation |
+| Møllenhus, Martin   | Visualization 1: Dumbbell chart, HGS animation,       |
 | Liao, Win           | Visualization 2: Individual Performance, Conclusion   |
 | CHAN, Yin Hang Nick | Visualization 3: Scoring method bar charts            |
 | Yip, Chi Ho         | Visualization 4: Leaderboard, photos, game score      |

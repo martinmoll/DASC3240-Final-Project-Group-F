@@ -1,10 +1,11 @@
 # -----------------------------------------------------------------------------
 # VIS1_ANIMATION: The Game Score Shift
 # -----------------------------------------------------------------------------
-# Purpose: Interactive animated scatter plot showing the Moneyball insight.
-#          Uses plotly's frame-based animation to morph between per-game and
-#          per-minute Hollinger Game Score, with full hover tooltips on every
-#          dot during and after animation.
+# Purpose:
+# Interactive animated scatter plot showing the Moneyball insight.
+# Uses plotly's frame-based animation to morph between per-game and
+# per-minute Hollinger Game Score, with full hover tooltips on every
+# dot during and after animation.
 #
 # Integration:
 #   1. source("vis1_animation.R") in app.R
@@ -180,7 +181,7 @@ vis1_anim_ui <- function() {
       
       card(
         card_header(
-          "The Moneyball Shift: Per-Game vs. Per-Minute Game Score",
+          "The Game Score Shift: Per-Game vs. Per-Minute Game Score",
           class = "bg-primary text-white"
         ),
         card_body(
@@ -227,9 +228,9 @@ vis1_anim_server <- function(input, output, session) {
         margin = list(l = 60, r = 20, t = 50, b = 80)
       ) %>%
       animation_opts(
-        # Duration of the transition between frames (milliseconds)
+        # Transition time, ms
         frame = 1500,
-        # Duration of the pause on each frame before transitioning
+        # Pause duration
         transition = 800,
         # Easing function for smooth movement
         easing = "cubic-in-out",
