@@ -18,7 +18,7 @@ Paste in Rstudio's console.
 git clone https://github.com/martinmoll/DASC3240-Final-Project-Group-F.git
 ```
 
-Open the `.Rproj` file in RStudio and click "Run App".
+Open the `app.R` file in RStudio and click "Run App".
 
 ## Required Packages
 
