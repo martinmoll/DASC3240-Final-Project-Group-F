@@ -53,11 +53,12 @@ per-minute Game Score reaches the 75th percentile are classified as
 
 ## App Structure
 
-| File | Description                                                    
+| File                        | Description                                                    
 |-----------------------------------------------------------------------------|
-| `app.R`       | Main app: sources tabs, assembles navbar layout             |
-| `scripts/...` | R scripts for our visualizations                            | 
-| `about.md`    | Dataset background, license, methodology                    |
+| `app.R`                     | Main app: sources tabs, navbar layout         |
+| `scripts/...`               | R scripts for our visualizations              | 
+| `about.md`                  | Dataset background, license, methodology      |
+| `player_photos_resized/..`  | Dataset background, license, methodology      |
 
 
 ## Group Contributions
