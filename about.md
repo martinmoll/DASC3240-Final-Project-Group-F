@@ -1,7 +1,7 @@
 ### About This App
 
 This application explores the 2019 WNBA season through the lens of
-**Moneyball analytics**: using data to identify undervalued players
+**Moneyball (the movie) analytics**: using data to identify undervalued players
 whose on-court production exceeds what their playing time suggests.
 
 ---
@@ -23,7 +23,7 @@ league's next breakout stars?
 **License:** The `bayesrules` package is distributed under the
 GPL (>= 3) license on CRAN. The underlying data is sourced from
 basketball-reference.com, which provides sports statistics for
-personal, non-commercial use.
+personal, non-commercial use by using sportradar.com data.
 
 **Coverage:** All 146 rostered WNBA players from the 2019 season.
 
@@ -63,7 +63,7 @@ The following preprocessing steps are applied:
 
 5. **Moneyball classification:** Bench players whose per-minute
    Game Score is at or above the 75th percentile of all players
-   are flagged as "Hidden Gems."
+   are flagged as "Hidden Gems".
 
 ---
 
@@ -97,7 +97,7 @@ elements provide clear advantages:
   the Moneyball insight themselves rather than being told
 - **Plotly hover** reveals individual player identities within
   aggregate views
-- **gganimate animation** makes the per-game to per-minute shift
+- **Animation** makes the per-game to per-minute shift
   viscerally clear by showing dots physically move
 - **Dropdown selectors** let users explore 20+ stat combinations
   without needing 200+ static charts

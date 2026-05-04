@@ -1,7 +1,6 @@
 # -----------------------------------------------------------------------------
 # PROJECT INTRODUCTION & OVERVIEW
 # -----------------------------------------------------------------------------
-# Prefix: vis_intro
 # Purpose: Opening tab that frames the Hidden Gems question, provides dataset
 #          context, and presents key findings and conclusions.
 # -----------------------------------------------------------------------------
@@ -24,8 +23,8 @@ vis_intro_ui <- function() {
            whose per-minute production rivals that of starters."),
         card_footer(
           strong("The Goal:"),
-          "Using Moneyball analytics to identify high-efficiency, under-utilized talent
-           who deserve more playtime based on statistical impact."
+          "Using varying analytics to identify high-efficiency, under-utilized talent
+           who deserve more playtime based on their statistical impact."
         )
       ),
       
@@ -61,7 +60,7 @@ vis_intro_ui <- function() {
           
           tags$h5(strong("Rate-Based Efficiency")),
           p("While starters typically produce higher raw totals, per-minute analysis reveals that
-             bench players perform at a comparable — and sometimes superior — level. The gap between
+             bench players perform at a comparable, and sometimes superior level. The gap between
              starters and bench is primarily about opportunity, not ability."),
           
           tags$h5(strong("Bench Value & Depth")),

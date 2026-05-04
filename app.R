@@ -5,12 +5,6 @@
 # visualization tabs from separate .R files and assembles them into a
 # multi-tab navigation layout using bslib::page_navbar().
 #
-# To add a new tab:
-#   1. Create a file (e.g., visNUMBER_YOURNAME.R) with _ui() and _server() functions
-#   2. Add source("visNUMBER_YOURNAME.R") below
-#   3. Add the _ui() call inside page_navbar()
-#   4. Add the _server() call inside the server function
-#
 # To run: click "Run App" in RStudio, or use
 #   shiny::runGitHub("DASC3240-Final-Project-Group-F", "martinmoll")
 # -----------------------------------------------------------------------------
@@ -37,14 +31,13 @@ ui <- page_navbar(
   title = "WNBA 2019 - Finding Hidden Gems",
   theme = bs_theme(bootswatch = "flatly"),
   
-  # --- Visualization tabs ---
+  # --- Visualization tabs. Order matters---
   vis_intro_ui(),
   vis1_ui(),               
   vis1_anim_ui(),           
   vis2_ui(),
-  vis3_ui(),
   vis4_ui(),
-  # source("vis_OTHER.R")   # Tab 3: Add other members' tabs here
+  vis3_ui(),
   
   
   # --- About tab: dataset background, license, methodology ---
@@ -64,7 +57,6 @@ server <- function(input, output, session) {
   vis2_server(input, output, session)
   vis3_server(input, output, session)
   vis4_server(input, output, session)
-  # vis_OTHER_server(input, output, session)  # Add other members here
 }
 
 
